@@ -1,0 +1,69 @@
+<mat-card>
+  <h2 fxLayoutAlign="center center"
+  >
+    <mat-icon class="icon">input</mat-icon>
+    <span>Login Form</span>
+  </h2>
+
+  <section class="login-form">
+      <form 
+        fxLayout="column" 
+        fxLayoutAlign="center center"
+        fxLayoutGap="5px"
+        #f="ngForm"
+        (ngSubmit)="onSubmit(f)"  
+      >
+    
+        <!-- Input Email -->
+        <mat-form-field>
+          <input type="email" 
+            name="email"
+            matInput
+            placeholder="Your Email"
+            ngModel
+            email
+            required
+            #emailInput="ngModel"
+          >
+            <mat-error *ngIf="emailInput.hasError('required')">
+              Please input a valid email
+            </mat-error>
+            <mat-error *ngIf="emailInput.hasError('email')">
+              A valid email is required
+            </mat-error>
+        </mat-form-field>
+    
+        <!-- Input Password -->
+        <mat-form-field>
+          <input type="password" 
+            name="password"
+            matInput
+            placeholder="Your Password"
+            ngModel 
+            required
+            minlength="6"
+            #pwInput="ngModel"
+          > 
+            <mat-error *ngIf="pwInput.hasError('required')">
+              Password is required
+            </mat-error>
+            <mat-error *ngIf="pwInput.hasError('minlength')">
+              Password must be more than 6 characters
+            </mat-error>
+            <mat-hint align="end">{{ pwInput.value?.length }} /6</mat-hint>
+        </mat-form-field>
+    
+        <!-- Submit Button-->
+        <button 
+          mat-raised-button       
+          color="primary"
+          [disabled]="!f.valid"
+        >
+          Submit
+        </button>
+    
+      </form>
+  </section>
+</mat-card>
+  
+

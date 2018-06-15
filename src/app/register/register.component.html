@@ -1,0 +1,115 @@
+<mat-card>
+  <h2 fxLayoutAlign="center center">
+    <mat-icon class="icon">face</mat-icon>
+    <span>Register Form</span>
+  </h2>
+  <section class="signup-form">
+    <form 
+      fxLayout="column" 
+      fxLayoutAlign="center center"
+      fxLayoutGap="5px"
+      #f="ngForm"
+      (ngSubmit)="onSubmit(f)"  
+    >  
+      <!-- Input Name -->
+      <mat-form-field>
+        <input type="text" 
+          name="name"
+          matInput
+          placeholder="Your Name"
+          ngModel
+          required
+          #nameInput="ngModel"
+        >
+          <mat-error *ngIf="nameInput.hasError('required')">
+            Please input a valid name
+          </mat-error>
+          <mat-error *ngIf="nameInput.hasError('text')">
+            A valid name is required
+          </mat-error>
+      </mat-form-field>
+
+      <!-- Input Email -->
+      <mat-form-field>
+        <input type="email" 
+          name="email"
+          matInput
+          placeholder="Your Email"
+          ngModel
+          email
+          required
+          #emailInput="ngModel"
+        >
+          <mat-error *ngIf="emailInput.hasError('required')">
+            Please input a valid email
+          </mat-error>
+          <mat-error *ngIf="emailInput.hasError('email')">
+            A valid email is required
+          </mat-error>
+      </mat-form-field>
+  
+      <!-- Input Password -->
+      <mat-form-field>
+        <input type="password" 
+          name="password"
+          matInput
+          placeholder="Your Password"
+          ngModel 
+          required
+          minlength="6"
+          #pwInput="ngModel"
+        > 
+          <mat-error *ngIf="pwInput.hasError('required')">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="pwInput.hasError('minlength')">
+            Password must be more than 6 characters
+          </mat-error>
+          <mat-hint align="end">{{ pwInput.value?.length }} /6</mat-hint>
+      </mat-form-field>
+  
+      <!-- Input Birthdate-->
+      <mat-form-field>
+        <input matInput 
+          [matDatepicker]="picker" 
+          [max]="maxDate"
+          placeholder="Birthdate"
+          name="birthdate"
+          ngModel
+          required
+          #birthDateInput="ngModel"
+        >
+          <mat-datepicker-toggle 
+            matSuffix 
+            [for]="picker"
+          >
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="birthDateInput.hasError('required')">
+            Birtdate is required
+          </mat-error>
+      </mat-form-field>
+  
+      <!-- Input T&C Checkbox -->
+      <mat-checkbox
+        name="tcCheckBox"
+        ngModel 
+        required 
+        #tcInput="ngModel"
+        color="primary"
+      >
+        Agree to the terms and conditions
+      </mat-checkbox>
+  
+      <!-- Submit Button-->
+      <button 
+        mat-raised-button       
+        color="primary"
+        [disabled]="!f.valid"
+      >
+        Submit
+      </button>
+  
+    </form>
+  </section>
+</mat-card>  

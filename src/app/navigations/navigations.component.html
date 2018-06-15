@@ -1,0 +1,93 @@
+<!-- TOOLBAR -->
+<mat-toolbar color="primary" 
+  class="toolbar"
+  role="heading"
+>
+  <!-- Toolbar Burger Icon -->
+  <div
+    fxHide.gt-xs="true"
+  >
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon >
+    </button>
+  </div>
+
+  <!-- Toolbar Logo -->
+  <div>
+    LOGO 
+  </div>
+
+  <!-- Toolbar Menu -->
+  <div fxFlex
+    fxHide.xs="true"
+  >
+    <ul 
+      fxFlex
+      fxLayout
+      fxLayoutAlign="flex-end"
+      fxLayoutGap="15px"
+      class="navigation-items"
+    >
+      <li routerLink="/">
+        <mat-icon>home</mat-icon>
+      </li>
+      <li routerLink="/login">
+        <mat-icon>input</mat-icon>
+      </li>
+      <li routerLink="/register">
+        <mat-icon>face</mat-icon>
+      </li>
+      <li routerLink="/logout">
+        <mat-icon>eject</mat-icon>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
+
+<!-- SIDENAV-->
+<mat-sidenav-container class="sidenav-container">  
+  <mat-sidenav #sidenav role="navigation" class="sidenav"> 
+      <mat-nav-list>
+
+          <!-- Sidenav Home Menu-->
+          <a mat-list-item 
+              routerLink="/" 
+              (click)="sidenav.close()"
+          >
+              <mat-icon class="icon">home</mat-icon>   
+              <span>Home</span>
+          </a>
+
+          <!-- Sidenav Login Menu-->
+          <a mat-list-item 
+              routerLink="/login" 
+              (click)="sidenav.close()"
+          >
+              <mat-icon class="icon">input</mat-icon>   
+              <span>Login</span>
+          </a>
+          
+          <!-- Sidenav Signup Menu -->
+          <a mat-list-item 
+              routerLink="/register" 
+              (click)="sidenav.close()"
+          >
+              <mat-icon class="icon">face </mat-icon>   
+              <span>Register</span>
+          </a>          
+
+          <!-- Sidenav Logout Menu-->
+          <mat-list-item>
+              <button mat-icon-button>
+                  <mat-icon class="icon">eject</mat-icon>   
+                  <span>Logout</span>
+              </button>
+          </mat-list-item>
+
+      </mat-nav-list>   
+  </mat-sidenav>
+
+  <mat-sidenav-content>      
+    <router-outlet></router-outlet>    
+  </mat-sidenav-content>
+</mat-sidenav-container>
