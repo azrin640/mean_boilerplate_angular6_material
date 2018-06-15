@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
@@ -10,6 +9,8 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class RegisterComponent implements OnInit {
   maxDate;
+  invalidUser = false;
+  invalidUserMessage;
   
   constructor( 
     private router: Router,
@@ -23,10 +24,20 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(credentials: HTMLInputElement){
-    this.authService.register(credentials)
-      .subscribe(response => {
-        console.log(response);
-      })
+    this.authService.register(credentials)  
+      .subscribe((response:any) => {
+        if (response.status === 201){
+          localStorage.setItem('token', response.token);
+        }
+        if (response['status'] === 400){
+          this.invalidUser = true;
+          this.invalidUserMessage = response.message;
+        }
+        else{
+          this.invalidUser = true;
+          this.invalidUserMessage = 'User registration error';
+        }
+      });
   }
 
 }

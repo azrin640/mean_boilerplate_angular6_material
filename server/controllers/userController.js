@@ -49,14 +49,6 @@ exports.register = async (req, res, next) => {
     await user.setPassword(req.body.password);
     await user.save(function (err, user){
         if(err){
-            res.json(err);
-        }
-        if(user){
-            res.json(user);
-        }
-       
-        /*
-        if(err){
             res.json({
                 status: 400,
                 message: 'User has already registered'
@@ -72,7 +64,6 @@ exports.register = async (req, res, next) => {
                     id: user._id
             })
         }
-        */
     });
     
 };

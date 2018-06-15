@@ -2,14 +2,14 @@
   <h2 fxLayoutAlign="center center">
     <mat-icon class="icon">face</mat-icon>
     <span>Register Form</span>
-  </h2>
+  </h2>  
   <section class="signup-form">
     <form 
       fxLayout="column" 
       fxLayoutAlign="center center"
       fxLayoutGap="5px"
       #f="ngForm"
-      (ngSubmit)="onSubmit(f)"  
+      (ngSubmit)="onSubmit(f.value)"  
     >  
       <!-- Input Name -->
       <mat-form-field>
@@ -100,6 +100,11 @@
       >
         Agree to the terms and conditions
       </mat-checkbox>
+
+      <!-- Registration Error -->
+      <mat-error *ngIf="invalidUser">
+        Registration Error: {{ invalidUserMessage }}
+      </mat-error>
   
       <!-- Submit Button-->
       <button 
