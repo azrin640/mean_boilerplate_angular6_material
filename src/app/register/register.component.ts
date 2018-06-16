@@ -25,17 +25,15 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(credentials: HTMLInputElement){
     this.authService.register(credentials)  
-      .subscribe((response:any) => {
+      .subscribe((response: any) => {
+        console.log(response);
         if (response.status === 201){
           localStorage.setItem('token', response.token);
+          this.router.navigate(['/']);
         }
-        if (response['status'] === 400){
+        if (response.status === 400){
           this.invalidUser = true;
           this.invalidUserMessage = response.message;
-        }
-        else{
-          this.invalidUser = true;
-          this.invalidUserMessage = 'User registration error';
         }
       });
   }

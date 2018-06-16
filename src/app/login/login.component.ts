@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,14 +10,30 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  loginError = false;
+  loginErrorMessage;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm){
-    console.log(form);
-    this.authService.login(form);
+  onSubmit(credentials: HTMLInputElement){
+    this.authService.login(credentials)
+      .subscribe((response: any) => {
+        console.log(response);
+        if (response.status === 202){
+          localStorage.setItem('token', response.token);
+          this.router.navigate(['/']);
+        }
+        if (response.status === 404){
+          this.loginError = true;
+          this.loginErrorMessage = response.message;
+        }
+      })
   }
 
 }

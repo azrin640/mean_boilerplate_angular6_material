@@ -21,6 +21,12 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
+
 
 @NgModule({
   declarations: [
@@ -42,7 +48,15 @@ import { HttpModule } from '@angular/http';
     MaterialModule,
 
     // Flex Layout Module
-    FlexLayoutModule
+    FlexLayoutModule,
+
+    // Auth 0 Module
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200', 'localhost:7777']
+      }
+    })
   ],
   providers: [
     AuthService

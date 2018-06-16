@@ -31,13 +31,19 @@
       <li routerLink="/">
         <mat-icon>home</mat-icon>
       </li>
-      <li routerLink="/login">
+      <li *ngIf="authService.isLoggedIn()" 
+        routerLink="/login"
+      >
         <mat-icon>input</mat-icon>
       </li>
-      <li routerLink="/register">
+      <li *ngIf="authService.isLoggedIn()"
+        routerLink="/register"
+      >
         <mat-icon>face</mat-icon>
       </li>
-      <li routerLink="/logout">
+      <li (click)="authService.logout()"
+        routerLink="/logout"
+      >
         <mat-icon>eject</mat-icon>
       </li>
     </ul>
@@ -62,6 +68,7 @@
           <a mat-list-item 
               routerLink="/login" 
               (click)="sidenav.close()"
+              *ngIf="authService.isLoggedIn()"
           >
               <mat-icon class="icon">input</mat-icon>   
               <span>Login</span>
@@ -71,6 +78,7 @@
           <a mat-list-item 
               routerLink="/register" 
               (click)="sidenav.close()"
+              *ngIf="authService.isLoggedIn()"
           >
               <mat-icon class="icon">face </mat-icon>   
               <span>Register</span>
@@ -78,7 +86,9 @@
 
           <!-- Sidenav Logout Menu-->
           <mat-list-item>
-              <button mat-icon-button>
+              <button mat-icon-button
+                (click)="authService.logout()"
+              >
                   <mat-icon class="icon">eject</mat-icon>   
                   <span>Logout</span>
               </button>
