@@ -23,13 +23,23 @@ export class AuthService {
 
   isLoggedIn(){
     let token = localStorage.getItem('token');
-    let isLoggedIn = this.jwtHelper.isTokenExpired(token);
-    if (isLoggedIn === true){
+    let validToken = this.jwtHelper.isTokenExpired(token);
+    if (validToken === true){
       return true;
     }
     else {
       return false;
     }
+  }
+
+  get currentUser(){
+    let token = localStorage.getItem('token');
+    if (!token){
+      return null;
+    } 
+    if (token){
+      return this.jwtHelper.decodeToken(token);
+    }    
   }
 
   logout(){

@@ -13,8 +13,6 @@ export class NavigationsComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-  }
-
-  
+  } 
 
 }

@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit {
   onSubmit(credentials: HTMLInputElement){
     this.authService.register(credentials)  
       .subscribe((response: any) => {
-        console.log(response);
         if (response.status === 201){
           localStorage.setItem('token', response.token);
           this.router.navigate(['/']);

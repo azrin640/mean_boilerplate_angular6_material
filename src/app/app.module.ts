@@ -16,12 +16,14 @@ import { NavigationsComponent } from './navigations/navigations.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -34,7 +36,8 @@ export function tokenGetter() {
     NavigationsComponent,
     RegisterComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    AdminHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ export function tokenGetter() {
     })
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
