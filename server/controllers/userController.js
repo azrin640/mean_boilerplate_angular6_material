@@ -10,6 +10,7 @@ const JwtStrategy = require('passport-jwt').Strategy,
     ExtractJwt = require('passport-jwt').ExtractJwt;
 
 exports.validateRegister = (req, res, next) => {
+
     req.sanitizeBody('name');
     req.checkBody('name', 'You must supply a name').notEmpty();
     req.checkBody('email', 'That email is not valid').isEmail();
@@ -19,26 +20,13 @@ exports.validateRegister = (req, res, next) => {
         gmail_remove_subaddress: false 
     });
     req.checkBody('password', 'Password can not be blank').notEmpty();
-    req.checkBody('confirmPassword', 'Your password do not match').equals(req.body.password);
+    req.checkBody('cpassword', 'Your password do not match').equals(req.body.password);
 
     const errors = req.validationErrors();  
     return next();
 };
 
-exports.isLoggedIn = async (req, res, next) => {
-    var auth = req.headers.authorization;
-    var token = auth.split(' ')[1];
-    var decodedUser = jwt.decode(token);
-    const user = await User.findOne({_id: decodedUser._id});
-    if(user){
-        return next();
-    }
-    else{
-        res.json('No User');
-    }      
-};
-
-exports.register = async (req, res, next) => {    
+exports.register = async (req, res) => { 
     const user = new User({
         name: req.body.name,
         email: req.body.email,
@@ -64,8 +52,7 @@ exports.register = async (req, res, next) => {
                     id: user._id
             })
         }
-    });
-    
+    }); 
 };
 
 exports.login = (req, res, next) => {
@@ -94,4 +81,17 @@ exports.login = (req, res, next) => {
         }
 
     })(req, res, next);
+};
+
+exports.isLoggedIn = async (req, res, next) => {
+    var auth = req.headers.authorization;
+    var token = auth.split(' ')[1];
+    var decodedUser = jwt.decode(token);
+    const user = await User.findOne({_id: decodedUser._id});
+    if(user){
+        return next();
+    }
+    else{
+        res.json('No User');
+    }      
 };

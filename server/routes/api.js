@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
 // ** USER **
 // Register User
 router.post('/register', 
-    //userController.validateRegister,
+    userController.validateRegister,
     catchErrors(userController.register)
 );
 

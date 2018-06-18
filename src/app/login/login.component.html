@@ -1,11 +1,19 @@
-<mat-card>
-  <h2 fxLayoutAlign="center center"
-  >
-    <mat-icon class="icon">input</mat-icon>
-    <span>Login Form</span>
-  </h2>
+<div class="inner">
+  <mat-card class="mat-card"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  > 
+    <!-- MAT CARD TITLE -->
+    <mat-card-title 
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <mat-icon class="icon">input</mat-icon>
+      <span>Login Form</span>
+    </mat-card-title>
 
-  <section class="login-form">
+    <!-- MAT CARD CONTENT -->
+    <mat-card-content>
       <form 
         fxLayout="column" 
         fxLayoutAlign="center center"
@@ -63,14 +71,15 @@
         <!-- Submit Button-->
         <button 
           mat-raised-button       
-          color="primary"
+          color="accent"
           [disabled]="!f.valid"
         >
           Submit
         </button>
     
-      </form>
-  </section>
-</mat-card>
+        </form>
+    </mat-card-content>    
+  </mat-card>
+</div>
   
 

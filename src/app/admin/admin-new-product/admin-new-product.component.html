@@ -1,0 +1,99 @@
+<div class="inner" 
+  fxLayout="row"
+  fxLayout.xs="column"
+>
+    <div fxFlex="50"    
+    > 
+      <div class="title"
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <mat-icon class="icon">add_shopping_cart</mat-icon>
+        <h2>Add a Product</h2> 
+      </div>
+      <form fxLayout="column"            
+            fxLayoutAlign="center center"
+            fxLayoutGap="5px"
+            #f="ngForm"
+            (ngSubmit)="onSubmit(f.value)"  
+      >
+        
+        <!-- Input Title -->
+        <mat-form-field>
+          <input type="text" 
+            name="title"
+            matInput
+            placeholder="Product Title"
+            ngModel
+            required
+            #titleInput="ngModel"
+          >
+          <mat-error *ngIf="titleInput.hasError('required')">
+            Please key in a title
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Input Price -->
+        <mat-form-field>
+          <input type="number" 
+            name="price"
+            matInput
+            placeholder="Product Price"
+            ngModel
+            required
+            #priceInput="ngModel"
+          >
+          <mat-error *ngIf="priceInput.hasError('required')">
+            Please key in a price
+          </mat-error>
+        </mat-form-field>
+
+        <!-- category -->
+
+        <!-- Input Image URL -->
+        <mat-form-field>
+          <input type="text" 
+            name="imageUrl"
+            matInput
+            placeholder="Product image Url"
+            ngModel
+            required
+            #imageUrlInput="ngModel"
+          >
+          <mat-error *ngIf="imageUrlInput.hasError('required')">
+            Please key in an imageUrl
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Log In Error -->
+        <mat-error
+          *ngIf="loginError"
+        >
+          Error: {{ loginErrorMessage }}
+        </mat-error>
+    
+        <!-- Submit Button-->
+        <button 
+          mat-raised-button       
+          color="accent"
+          [disabled]="!f.valid"
+        >
+          Submit
+        </button>
+    
+      </form>
+    </div>
+    <div fxFlex="50"
+    >       
+     <mat-card>
+       <img mat-card-image
+        [src]="imageUrlInput.value"
+       >
+       <mat-card-content>
+         <h3>{{ titleInput.value }}</h3>
+         <span>{{ priceInput.value | currency: 'RM'}}</span>
+       </mat-card-content>
+     </mat-card>
+    </div>
+
+</div>
