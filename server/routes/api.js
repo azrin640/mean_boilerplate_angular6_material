@@ -20,8 +20,8 @@ router.post('/login', userController.login);
 
 // ** PRODUCT **
 
-router.post('/category', 
-    catchErrors(userController.isLoggedIn),
+router.post('/product/category', 
+    //catchErrors(userController.isLoggedIn),
     catchErrors(productController.createCategory)
 );
 

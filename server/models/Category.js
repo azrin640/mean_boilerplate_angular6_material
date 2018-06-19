@@ -7,7 +7,8 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: 'Please supply category name',
         trim: true,
-        unique: true
+        unique: true,
+        lowercase: true
     },
     description: {
         type: String,

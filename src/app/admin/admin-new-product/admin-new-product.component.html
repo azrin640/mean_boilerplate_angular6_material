@@ -48,7 +48,27 @@
           </mat-error>
         </mat-form-field>
 
-        <!-- category -->
+        <!-- category 
+        <mat-form-field>
+            <mat-select placeholder="Category">
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{ category.value }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        -->
+
+        <!-- Description Text Area-->
+        <mat-form-field>
+          <textarea name="description"
+            matInput
+            placeholder="Product description"
+            ngModel 
+            required 
+            #descriptionInput="ngModel"
+          >
+          </textarea>
+        </mat-form-field>
 
         <!-- Input Image URL -->
         <mat-form-field>
@@ -85,13 +105,14 @@
     </div>
     <div fxFlex="50"
     >       
-     <mat-card>
+     <mat-card *ngIf="titleInput.value">
        <img mat-card-image
         [src]="imageUrlInput.value"
        >
        <mat-card-content>
          <h3>{{ titleInput.value }}</h3>
          <span>{{ priceInput.value | currency: 'RM'}}</span>
+         <p>{{ descriptionInput.value }}</p>
        </mat-card-content>
      </mat-card>
     </div>

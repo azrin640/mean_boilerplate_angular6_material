@@ -1,0 +1,47 @@
+<div class="inner">
+  <form #f="ngForm"
+    (ngSubmit)="onSubmit(f.value)"
+    fxLayout="column"
+  >
+
+    <!-- New Category Input -->
+    <mat-form-field>
+      <input type="text"
+        name="name"
+        ngModel
+        matInput
+        placeholder="Add a category"
+        required
+        #categoryInput="ngModel"
+      >
+    </mat-form-field>
+
+    <!-- New Category Description -->
+    <mat-form-field>
+      <textarea type="text"
+        name="description"
+        ngModel
+        matInput
+        placeholder="Category Description"
+        required
+        #descriptionInput="ngModel"
+      >
+      </textarea>
+    </mat-form-field>
+
+    <!-- Error -->
+    <mat-error *ngIf="invalidCategory">
+      The category that you submitted is not valid
+    </mat-error>
+
+    <!-- Submit Button-->
+    <button 
+      mat-raised-button       
+      color="accent"
+      [disabled]="!f.valid"
+    >
+      Submit
+    </button>
+
+  </form>
+</div>

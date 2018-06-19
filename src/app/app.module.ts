@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AdminNewProductComponent } from './admin/admin-new-product/admin-new-product.component';
+import { AdminNewProductCategoryComponent } from './admin/admin-new-product-category/admin-new-product-category.component';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -44,7 +45,8 @@ export function tokenGetter() {
     AdminHomeComponent,
     NoAccessComponent,
     AdminProductsComponent,
-    AdminNewProductComponent
+    AdminNewProductComponent,
+    AdminNewProductCategoryComponent
   ],
   imports: [
     BrowserModule,

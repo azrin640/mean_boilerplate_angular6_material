@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminNewProductComponent implements OnInit {
 
+  categories=[];
+
   constructor() { }
 
   ngOnInit() {

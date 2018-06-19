@@ -8,6 +8,7 @@ import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-guard.service';
 import { AdminNewProductComponent } from './admin/admin-new-product/admin-new-product.component';
+import { AdminNewProductCategoryComponent} from './admin/admin-new-product-category/admin-new-product-category.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -21,6 +22,11 @@ const routes: Routes = [
     {
         path: 'admin/product/new', 
         component: AdminNewProductComponent,
+        canActivate: [AuthGuardService, AdminAuthGuardService]
+    },
+    {
+        path: 'admin/product/new/category', 
+        component: AdminNewProductCategoryComponent,
         canActivate: [AuthGuardService, AdminAuthGuardService]
     },
     {path: 'no-access', component: NoAccessComponent}
