@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Category } from '../../model/category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+
+  private category: Category;
 
   constructor(
     private http: HttpClient
@@ -13,5 +15,17 @@ export class ProductsService {
 
   createProductCategory(category){
     return this.http.post('/api/product/category', category);
+  }
+
+  getProductCategories(){
+    return this.http.get('/api/products/categories');
+  }
+
+  editProductCategory(category: any){
+    return this.http.post('/api/product/category/update', category);
+  }
+
+  deleteProductCategory(category){    
+    return this.http.post('/api/product/category/delete', category);
   }
 }

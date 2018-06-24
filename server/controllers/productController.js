@@ -7,23 +7,70 @@ const { promisify } = require('es6-promisify');
 require ('express-validator');
 
 exports.createCategory = async (req, res) => {
-    const category = new Category({
-        name: req.body.name,
-        description: req.body.description 
-    });
-    await category.save(function(err, success){
-        if(err){
-            res.json(err);
-        }
-        if(success){
-            res.json(success);
-        }
-    });
+    if(req.body.id){
+        const category = {
+            name: req.body.name,
+            description: req.body.description 
+        };
+        const updateCategory = await Category.findOneAndUpdate({_id: req.body.id}, category);
+        if(updateCategory && updateCategory._id){
+            res.json(updateCategory);
+        }    
+    }
+    else{
+        const category = new Category({
+            name: req.body.name,
+            description: req.body.description 
+        });
+
+        await category.save(function(err, success){
+            if(err){
+                res.json(err);
+            }
+            if(success){
+                res.json(success);
+            }
+        });
+    }
+    
 }
 
-exports.getCategories = async (req, res) => {
+exports.updateProductCategory = async (req, res) => {
+    console.log(req.body.id);
+    const category = {
+        name: req.body.name,
+        description: req.body.description
+    }
+    if(req.body.id){        
+        const updateCategory = await Category.findOneAndUpdate({_id: req.body.id}, category);
+        if(updateCategory && updateCategory._id){
+            res.json(updateCategory);
+        }    
+        else{
+            res.json({status: 400, message: 'Bad Request'});
+        }
+    }
+    else{
+        res.json({status: 404, message: 'Not Found' })
+    }
+}
+
+exports.getProductsCategories = async (req, res) => {
     const categories = await Category.find();
-    res.json(categories);
+    if(categories){
+        const result = categories.sort(function(a, b){
+            if(a.name < b.name) return -1;
+            if(a.name > b.name) return 1;
+            return 0;
+        });
+        res.json(result);
+    }
+    else{
+        res.json({
+            status: '401', 
+            message: 'No category found'
+        });
+    }    
 }
 
 exports.validateProduct = (req, res, next) => {
@@ -99,9 +146,10 @@ exports.updateProduct = async (req, res) => {
     });
 }
 
-exports.deleteProduct = async (req, res) => {
-    if(req.params.id){
-        await Product.findByIdAndRemove({_id: req.params.id}, function(err, result){
+exports.deleteProductCategory = async (req, res) => {
+    console.log(req.body);
+    if(req.body && req.body._id){
+        await Category.findByIdAndRemove({_id: req.body._id}, function(err, result){
             if(err){
                 res.json(err);
             }
@@ -109,5 +157,11 @@ exports.deleteProduct = async (req, res) => {
                 res.json(result);
             }
         });
+    }
+    else{
+        res.json({
+            status: 404,
+            message: 'Request Not Found'
+        })
     }
 }

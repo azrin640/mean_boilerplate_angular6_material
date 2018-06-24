@@ -19,6 +19,11 @@ import { LoginComponent } from './login/login.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { AdminNewProductComponent } from './admin/admin-new-product/admin-new-product.component';
 import { AdminNewProductCategoryComponent } from './admin/admin-new-product-category/admin-new-product-category.component';
+import { NoAccessComponent } from './no-access/no-access.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { AdminEditProductCategoryComponent } from './admin/admin-edit-product-category/admin-edit-product-category.component';
+import { AdminEditProductCategoryModalComponent } from './admin/admin-edit-product-category-modal/admin-edit-product-category-modal.component';
+import { AdminDeleteProductCategoryModalComponent } from './admin/admin-delete-product-category-modal/admin-delete-product-category-modal.component';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -27,8 +32,6 @@ import { HttpModule } from '@angular/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-guard.service';
-import { NoAccessComponent } from './no-access/no-access.component';
-import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -46,7 +49,10 @@ export function tokenGetter() {
     NoAccessComponent,
     AdminProductsComponent,
     AdminNewProductComponent,
-    AdminNewProductCategoryComponent
+    AdminNewProductCategoryComponent,
+    AdminEditProductCategoryComponent,
+    AdminEditProductCategoryModalComponent,
+    AdminDeleteProductCategoryModalComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +81,10 @@ export function tokenGetter() {
     AuthGuardService,
     AdminAuthGuardService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AdminEditProductCategoryModalComponent,
+    AdminDeleteProductCategoryModalComponent
+  ]
 })
 export class AppModule { }

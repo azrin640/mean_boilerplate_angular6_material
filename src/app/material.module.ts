@@ -13,6 +13,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
     imports: [
@@ -27,7 +33,12 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatCheckboxModule,
         MatNativeDateModule,
         MatCardModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTableModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatSortModule,
+        MatPaginatorModule
     ],
     exports: [
         MatButtonModule,
@@ -41,7 +52,12 @@ import { MatTabsModule } from '@angular/material/tabs';
         MatCheckboxModule,
         MatNativeDateModule,
         MatCardModule,
-        MatTabsModule
+        MatTabsModule,
+        MatTableModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatSortModule,
+        MatPaginatorModule
     ]
 })
 export class MaterialModule {}

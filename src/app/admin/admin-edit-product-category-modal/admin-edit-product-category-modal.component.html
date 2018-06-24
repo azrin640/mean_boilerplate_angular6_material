@@ -1,0 +1,64 @@
+<form #f="ngForm"
+  (ngSubmit)="onSubmit(f.value)"
+  fxLayout="column"
+  fxLayoutAlign="center"
+>
+  <!-- Title -->
+  <div class="tittle">
+    <h2>
+      <mat-icon>subject</mat-icon>
+      {{ title }}
+    </h2>
+  </div>
+
+    <!-- New Category ID -->
+    <mat-form-field class="inputId">
+      <input type="text"
+        name="id"
+        [(ngModel)]="category._id"
+        matInput
+        placeholder="Category ID"
+        #idInput="ngModel"
+      >
+    </mat-form-field>
+
+  <!-- New Category Input -->
+  <mat-form-field>
+    <input type="text"
+      name="name"
+      [(ngModel)]="category.name"
+      matInput
+      placeholder="Add/Edit a category"
+      required
+      #categoryInput="ngModel"
+    >
+  </mat-form-field>
+
+  <!-- New Category Description -->
+  <mat-form-field>
+    <textarea type="text"
+      name="description"
+      [(ngModel)]="category.description"
+      matInput
+      placeholder="Category Description"
+      required
+      #descriptionInput="ngModel"
+    >
+    </textarea>
+  </mat-form-field>
+
+  <!-- Error -->
+  <mat-error *ngIf="invalidCategory">
+    The category that you submitted is not valid
+  </mat-error>
+
+  <!-- Submit Button-->
+  <button 
+    mat-raised-button       
+    color="accent"
+    [disabled]="!f.valid"
+  >
+    Submit
+  </button>
+
+</form>
