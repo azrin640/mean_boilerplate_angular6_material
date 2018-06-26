@@ -39,6 +39,10 @@ router.post('/product/new',
     catchErrors(productController.createProduct)
 );
 
+router.post('/product/edit', 
+    catchErrors(productController.editProduct)
+);
+
 // ** PRODUCTS ** 
 router.get('/products/categories', 
     catchErrors(productController.getProductsCategories)
@@ -51,6 +55,9 @@ router.get('/categories',
 router.get('/products', 
     catchErrors(productController.getProducts)
 );
+
+
+
 
 router.get('/product/:id', catchErrors(productController.getProduct));
 router.post('/product/update/:id', catchErrors(productController.updateProduct));

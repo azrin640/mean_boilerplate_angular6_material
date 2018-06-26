@@ -33,14 +33,14 @@ export class AdminNewProductCategoryComponent implements OnInit, AfterViewInit {
 
   ngOnInit(){
     this.productsService.getProductCategories()
-    .pipe(
-      finalize(() => {
-        this.sortData();
+      .pipe(
+        finalize(() => {
+          this.sortData();
+        })
+      )
+      .subscribe((response: any) => {
+        this.dataSource.data = response;
       })
-    )
-    .subscribe((response: any) => {
-      this.dataSource.data = response;
-    })
   }  
 
   sortData(){
@@ -91,12 +91,6 @@ export class AdminNewProductCategoryComponent implements OnInit, AfterViewInit {
 
   editCategory(category):any{
     this.dialog.open(AdminEditProductCategoryModalComponent, {data: category});
-  }
-
-  removeCategory(category):any{
-    
-
-
   }
 
   filter(input: any){

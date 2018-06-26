@@ -33,6 +33,10 @@ export class ProductsService {
     return this.http.post('/api/product/new', product);
   }
 
+  editProduct(product){
+    return this.http.post('/api/product/edit', product);
+  }
+
   getProducts(){
     return this.http.get('/api/products');
   }

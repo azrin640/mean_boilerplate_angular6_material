@@ -92,6 +92,7 @@ exports.createProduct = async (req, res) => {
         title: req.body.title,
         price: req.body.price,
         category: req.body.category,
+        description: req.body.description,
         image: req.body.imageUrl
     });
     await product.save(function(err, result){
@@ -149,7 +150,6 @@ exports.updateProduct = async (req, res) => {
 }
 
 exports.deleteProductCategory = async (req, res) => {
-    console.log(req.body);
     if(req.body && req.body._id){
         await Category.findByIdAndRemove({_id: req.body._id}, function(err, result){
             if(err){
@@ -165,5 +165,22 @@ exports.deleteProductCategory = async (req, res) => {
             status: 404,
             message: 'Request Not Found'
         })
+    }
+}
+
+exports.editProduct = async (req, res) => {
+    console.log(req.body);
+    const product = {
+        _id: req.body._id,
+        code: req.body.code,
+        title: req.body.title,
+        price: req.body.price,
+        category: req.body.category,
+        description: req.body.description,
+        image: req.body.imageUrl
+    };
+    const response = await Product.findOneAndUpdate({_id: req.body._id}, product);
+    if (response){
+        res.json(response);
     }
 }

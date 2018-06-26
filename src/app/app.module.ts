@@ -32,6 +32,7 @@ import { HttpModule } from '@angular/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-guard.service';
+import { AdminEditProductComponent } from './admin/admin-edit-product/admin-edit-product.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -52,7 +53,8 @@ export function tokenGetter() {
     AdminNewProductCategoryComponent,
     AdminEditProductCategoryComponent,
     AdminEditProductCategoryModalComponent,
-    AdminDeleteProductCategoryModalComponent
+    AdminDeleteProductCategoryModalComponent,
+    AdminEditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +86,8 @@ export function tokenGetter() {
   bootstrap: [AppComponent],
   entryComponents: [
     AdminEditProductCategoryModalComponent,
-    AdminDeleteProductCategoryModalComponent
+    AdminDeleteProductCategoryModalComponent,
+    AdminEditProductComponent
   ]
 })
 export class AppModule { }

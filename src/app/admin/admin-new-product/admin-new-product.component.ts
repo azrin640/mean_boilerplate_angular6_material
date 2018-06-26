@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../../services/products/products.service';
 import { Product } from '../../model/product';
-import { MatTable, MatTableDataSource } from '@angular/material';
+import { MatTable, MatTableDataSource, MatDialog } from '@angular/material';
+import { finalize } from 'rxjs/operators';
+import { AdminEditProductComponent } from '../admin-edit-product/admin-edit-product.component';
 
 @Component({
   selector: 'app-admin-new-product',
@@ -15,19 +17,28 @@ export class AdminNewProductComponent implements OnInit {
   productDuplicate = false;
   productSaved = false;  
   dataSource = new MatTableDataSource<Product>();
-  displayedColumn = ['index', 'code'];
+  displayedColumns = ['index', 'category', 'code', 'title', 'price', 'manage'];
 
   @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.productsService.getProductCategories()
+      .pipe(
+        finalize(()=> {
+          this.getProducts();
+        })
+      )
       .subscribe((response:any) => {
         this.categories = response;
       });
+  }
+
+  getProducts(){
     this.productsService.getProducts()
       .subscribe((res:any) => {
         console.log(res);
@@ -44,10 +55,27 @@ export class AdminNewProductComponent implements OnInit {
         }
         if(response._id){
           this.productSaved = true;
-          response.slice(0, 0, response);
-          this.dataSource = response;
+          let oldData:any = []
+          oldData = this.dataSource.data;          
+          oldData.splice(0, 0, response);
+          this.dataSource.data = oldData;
         }
       })
+  }
+
+  editProduct(product){
+    let dialogRef = this.dialog.open(AdminEditProductComponent, {data: product});
+    let oldData:any = [];
+    oldData = this.dataSource.data;
+    let index = oldData.indexOf(product);
+    
+    dialogRef.afterClosed()
+      .subscribe((response:any) => {
+        oldData.splice(index, 1, response);
+        this.dataSource.data = oldData;
+      })
+    
+
   }
 
 }
