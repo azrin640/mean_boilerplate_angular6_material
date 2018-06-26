@@ -86,9 +86,6 @@ export class AdminNewProductCategoryComponent implements OnInit, AfterViewInit {
             this.invalidCategory = true;
           }
         }) 
-    } 
-    else{
-      return;
     }  
   }
 

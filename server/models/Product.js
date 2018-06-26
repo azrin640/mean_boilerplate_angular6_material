@@ -8,8 +8,11 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    category: {
-        type: String
+    code: {
+        type: String,
+        trim: true,
+        lowercase: true,
+        unique: true
     },
     title: {
         type: String,
@@ -20,6 +23,12 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: 'Please supply a price'
     },
+    category: {
+        type: String
+    },
+    description: {
+        type: String    
+    },    
     image: {
         type: String
     }

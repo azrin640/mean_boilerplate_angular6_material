@@ -84,9 +84,11 @@ exports.validateProduct = (req, res, next) => {
     req.checkbody('title').notEmpty();
 }
 
+// Create Product
 exports.createProduct = async (req, res) => {
     console.log(req.body);
     const product = new Product({
+        code: req.body.code,
         title: req.body.title,
         price: req.body.price,
         category: req.body.category,
@@ -99,7 +101,7 @@ exports.createProduct = async (req, res) => {
        else{
            res.json(err);
        }
-   });    
+   });
 }
 
 exports.getProducts = async (req, res) => {

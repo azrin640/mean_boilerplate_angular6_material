@@ -35,15 +35,23 @@ router.post('/product/category/update',
     catchErrors(productController.updateProductCategory)
 );
 
+router.post('/product/new', 
+    catchErrors(productController.createProduct)
+);
 
 // ** PRODUCTS ** 
 router.get('/products/categories', 
     catchErrors(productController.getProductsCategories)
 );
 
-router.get('/categories', catchErrors(productController.getCategories));
-router.post('/product', catchErrors(productController.createProduct));
-router.get('/products', catchErrors(productController.getProducts));
+router.get('/categories', 
+    catchErrors(productController.getCategories)
+);
+
+router.get('/products', 
+    catchErrors(productController.getProducts)
+);
+
 router.get('/product/:id', catchErrors(productController.getProduct));
 router.post('/product/update/:id', catchErrors(productController.updateProduct));
 

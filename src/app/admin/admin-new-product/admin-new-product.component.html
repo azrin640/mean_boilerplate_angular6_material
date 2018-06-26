@@ -1,23 +1,42 @@
-<div class="inner" 
+<div class="wrapper"
   fxLayout="row"
   fxLayout.xs="column"
+  fxLayoutGap="10px"
 >
     <div fxFlex="50"    
     > 
+      <!-- Title -->
       <div class="title"
         fxLayout="row"
         fxLayoutAlign="center center"
       >
         <mat-icon class="icon">add_shopping_cart</mat-icon>
-        <h2>Add a Product</h2> 
+        <h2>{{ title }}</h2> 
       </div>
+
+      <!-- FORM -->
       <form fxLayout="column"            
-            fxLayoutAlign="center center"
+            fxLayoutAlign="center"
             fxLayoutGap="5px"
             #f="ngForm"
             (ngSubmit)="onSubmit(f.value)"  
       >
         
+        <!-- Input Title -->
+        <mat-form-field>
+          <input type="text" 
+            name="code"
+            matInput
+            placeholder="Product Code"
+            ngModel
+            #codeInput="ngModel"
+          >
+          <mat-icon matSuffix>mode_edit</mat-icon>   
+          <mat-error *ngIf="codeInput.hasError('required')">
+            Please key in the product code
+          </mat-error>
+        </mat-form-field>
+
         <!-- Input Title -->
         <mat-form-field>
           <input type="text" 
@@ -28,6 +47,7 @@
             required
             #titleInput="ngModel"
           >
+          <mat-icon matSuffix>mode_edit</mat-icon>   
           <mat-error *ngIf="titleInput.hasError('required')">
             Please key in a title
           </mat-error>
@@ -43,20 +63,28 @@
             required
             #priceInput="ngModel"
           >
+          <mat-icon matSuffix>mode_edit</mat-icon>          
           <mat-error *ngIf="priceInput.hasError('required')">
             Please key in a price
           </mat-error>
         </mat-form-field>
 
-        <!-- category 
+        <!-- category -->
         <mat-form-field>
-            <mat-select placeholder="Category">
-              <mat-option *ngFor="let category of categories" [value]="category.value">
-                {{ category.value }}
+            <mat-select 
+              placeholder="Category"
+              (ngModel)="categories"
+              name="category"
+            >
+              <mat-option  
+                *ngFor="let category of categories" 
+                [value]="category.name" 
+              >
+                {{ category.name }}
               </mat-option>
             </mat-select>
         </mat-form-field>
-        -->
+       
 
         <!-- Description Text Area-->
         <mat-form-field>
@@ -80,6 +108,7 @@
             required
             #imageUrlInput="ngModel"
           >
+          <mat-icon matSuffix>mode_edit</mat-icon>   
           <mat-error *ngIf="imageUrlInput.hasError('required')">
             Please key in an imageUrl
           </mat-error>
@@ -104,17 +133,53 @@
       </form>
     </div>
     <div fxFlex="50"
-    >       
-     <mat-card *ngIf="titleInput.value">
-       <img mat-card-image
-        [src]="imageUrlInput.value"
-       >
-       <mat-card-content>
-         <h3>{{ titleInput.value }}</h3>
-         <span>{{ priceInput.value | currency: 'RM'}}</span>
-         <p>{{ descriptionInput.value }}</p>
-       </mat-card-content>
-     </mat-card>
+    >
+      <div
+        fxLayout="column"
+        fxLayoutAlign="center"
+      > 
+        <mat-card *ngIf="titleInput.value">
+          <mat-card-title>         
+            {{ titleInput.value | titlecase}}
+          </mat-card-title>
+          <img mat-card-image
+            [src]="imageUrlInput.value"
+          >
+          <mat-card-content>
+            <span>{{ priceInput.value | currency: 'RM'}}</span>
+            <p>{{ descriptionInput.value }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>      
     </div>
 
-</div>
+</div><!-- Div Wrapper -->
+
+<!-- ** TABLE **-->
+<div class="table">
+  <mat-table
+    [(dataSource)]="dataSource" 
+    class="mat-elevation-z8 mat-table"
+  >
+    <!-- Table Index -->
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> Index </th>
+      <td mat-cell *matCellDef="let row; let i = index"> 
+        {{ i + 1 }} 
+      </td>
+    </ng-container>
+
+    <!-- Table Category Name -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{ element.code }} 
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </mat-table>
+
+</div><!-- Table -->

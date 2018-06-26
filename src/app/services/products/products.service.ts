@@ -28,4 +28,12 @@ export class ProductsService {
   deleteProductCategory(category){    
     return this.http.post('/api/product/category/delete', category);
   }
+
+  createProduct(product){
+    return this.http.post('/api/product/new', product);
+  }
+
+  getProducts(){
+    return this.http.get('/api/products');
+  }
 }
