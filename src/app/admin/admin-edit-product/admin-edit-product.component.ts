@@ -12,12 +12,13 @@ export class AdminEditProductComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private product: any,
-    private matDialogRef: MatDialogRef<AdminEditProductComponent>,
+    private editProductDialog: MatDialogRef<AdminEditProductComponent>,
     private productsService: ProductsService
   ) { }
 
   title="Edit Product";
   categories;
+  invalidInput;
 
   ngOnInit() {
     this.productsService.getProductCategories()
@@ -29,17 +30,14 @@ export class AdminEditProductComponent implements OnInit {
   onSubmit(product: HTMLInputElement){
     this.productsService.editProduct(product)
       .subscribe((response: any) => {
-        if(response && response._id){              
-          this.matDialogRef.close(response);
+        if(response && response._id){
+          this.editProductDialog.close();
         }
         else{
-          return false;
-        }         
+          this.invalidInput = true;
+        }
+        
       });
-  }
-
-  cancelEdit(){
-    this.matDialogRef.close();
   }
 
 }

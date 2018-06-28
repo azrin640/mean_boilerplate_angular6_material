@@ -16,18 +16,22 @@ export class AdminEditProductCategoryModalComponent implements OnInit {
   ) { }
 
   title="Edit Category";
+  invalidCategory=false;
+  notFound=false;
 
   ngOnInit() {
   }
 
   onSubmit(category: any){
-    console.log(category)
     this.productsService.editProductCategory(category)
-      .subscribe(response => {
+      .subscribe((response: any) => {
+        if(response && response._id){
+          this.matDialogRef.close(response);
+        }
         if(response){
-          this.matDialogRef.close();
-        }        
-      })
+          console.log(response);
+        }     
+      });
 
   }
 

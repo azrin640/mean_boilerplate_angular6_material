@@ -43,6 +43,9 @@ router.post('/product/edit',
     catchErrors(productController.editProduct)
 );
 
+router.post('/product/delete',
+    catchErrors(productController.deleteProduct)
+)
 // ** PRODUCTS ** 
 router.get('/products/categories', 
     catchErrors(productController.getProductsCategories)

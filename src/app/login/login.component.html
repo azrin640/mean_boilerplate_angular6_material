@@ -1,12 +1,11 @@
-<div class="inner">
-  <mat-card class="mat-card"
-    fxLayout="column"
-    fxLayoutAlign="center center"
-  > 
+<div class="content"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <mat-card> 
     <!-- MAT CARD TITLE -->
     <mat-card-title 
-      fxLayout="column"
-      fxLayoutAlign="center center"
+      fxLayout="row"
     >
       <mat-icon class="icon">input</mat-icon>
       <span>Login Form</span>
@@ -14,6 +13,8 @@
 
     <!-- MAT CARD CONTENT -->
     <mat-card-content>
+
+      <!-- ** FORM ** -->
       <form 
         fxLayout="column" 
         fxLayoutAlign="center center"
@@ -71,7 +72,7 @@
         <!-- Submit Button-->
         <button 
           mat-raised-button       
-          color="accent"
+          color="primary"
           [disabled]="!f.valid"
         >
           Submit
@@ -79,6 +80,7 @@
     
         </form>
     </mat-card-content>    
+    
   </mat-card>
 </div>
   

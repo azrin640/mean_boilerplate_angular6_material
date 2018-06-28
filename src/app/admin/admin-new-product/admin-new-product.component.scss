@@ -20,3 +20,24 @@
     margin-right: 10px;
 }
 
+mat-card{
+    border-radius: 5px;
+}
+
+.span{
+
+    &__title{
+        font-size: 25px;
+    }
+
+    &__subtitle{
+        font-size: 20px;
+    }
+}
+
+.table{
+
+    &__header{
+        width: 120px;
+    }
+}

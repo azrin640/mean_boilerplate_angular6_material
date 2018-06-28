@@ -6,6 +6,7 @@ const Category = mongoose.model('Category');
 const { promisify } = require('es6-promisify');
 require ('express-validator');
 
+// Create Product Category
 exports.createCategory = async (req, res) => {
     if(req.body.id){
         const category = {
@@ -35,23 +36,41 @@ exports.createCategory = async (req, res) => {
     
 }
 
+// Update Product Category
 exports.updateProductCategory = async (req, res) => {
-    console.log(req.body.id);
     const category = {
         name: req.body.name,
         description: req.body.description
     }
     if(req.body.id){        
-        const updateCategory = await Category.findOneAndUpdate({_id: req.body.id}, category);
-        if(updateCategory && updateCategory._id){
-            res.json(updateCategory);
-        }    
-        else{
-            res.json({status: 400, message: 'Bad Request'});
-        }
+        const updateCategory = await Category.findOneAndUpdate(
+            {_id: req.body.id}, 
+            category,
+            {new: true},
+            function(err, result){
+                if(err){
+                    console.log(result);
+                    res.json(err);
+                }
+                if(result){
+                    res.json(result);
+                }
+            }
+
+        );
     }
     else{
-        res.json({status: 404, message: 'Not Found' })
+        return;
+    }
+}
+
+// Delete Product Category
+exports.deleteProductCategory = async (req, res) => {
+    if(req.body && req.body._id){
+        const removeCategory = await Category.findByIdAndRemove({_id: req.body._id});
+        if(removeCategory && removeCategory._id){
+            res.json(removeCategory);
+        }
     }
 }
 
@@ -149,27 +168,9 @@ exports.updateProduct = async (req, res) => {
     });
 }
 
-exports.deleteProductCategory = async (req, res) => {
-    if(req.body && req.body._id){
-        await Category.findByIdAndRemove({_id: req.body._id}, function(err, result){
-            if(err){
-                res.json(err);
-            }
-            if(result){
-                res.json(result);
-            }
-        });
-    }
-    else{
-        res.json({
-            status: 404,
-            message: 'Request Not Found'
-        })
-    }
-}
 
+// Edit Product
 exports.editProduct = async (req, res) => {
-    console.log(req.body);
     const product = {
         _id: req.body._id,
         code: req.body.code,
@@ -179,8 +180,35 @@ exports.editProduct = async (req, res) => {
         description: req.body.description,
         image: req.body.imageUrl
     };
-    const response = await Product.findOneAndUpdate({_id: req.body._id}, product);
-    if (response){
-        res.json(response);
-    }
+    await Product.findOneAndUpdate(
+        {_id: product._id}, 
+        product,
+        {new: true},
+        function(err, result){
+            if (result){
+                console.log(result);
+                res.json(result);
+            }
+            if(err){
+                res.json(err)
+            }
+        }    
+    );
+}
+
+exports.deleteProduct = async (req, res) => {
+   console.log(req.body);
+
+    await Product.findByIdAndRemove(
+        {_id: req.body._id}, 
+        function(err, result){
+            if(result){
+                console.log(result);
+                res.json(result);
+            }
+            if(err){
+                res.json(err);
+            }
+        }
+    );
 }

@@ -2,6 +2,12 @@
   Are you sure you want to delete this category?
 </p>
 
+<mat-error
+  *ngIf="invalidRequest"
+>
+  Your request is not valid
+</mat-error>
+
 <div 
   fxLayout="row"
   fxLayoutAlign="center center"

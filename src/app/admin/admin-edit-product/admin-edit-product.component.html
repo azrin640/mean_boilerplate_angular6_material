@@ -2,189 +2,227 @@
   fxLayout="row"
   fxLayout.xs="column"
   fxLayoutGap="10px"
-  fxLayoutAlign="center center"
-> 
-
-  <!-- ** PRODUCT CARD -->
-  <div fxFlex="50%"> 
-
-    <mat-card *ngIf="titleInput.value">
-      <mat-card-title>         
-        {{ titleInput.value | titlecase}}
-      </mat-card-title>
-      <img mat-card-image
-        [src]="imageUrlInput.value"
-        class="card__image"
+>
+  <div fxFlex="50"
+    fxLayout="column"
+    fxLayoutAlign="center"
+  > 
+    <mat-card>
+      <!-- Title -->
+      <mat-card-title 
+        fxLayout="row"
+        fxLayoutAlign="center center"
       >
+        <mat-icon class="icon">add_shopping_cart</mat-icon>
+          {{ title }} 
+      </mat-card-title>
+
       <mat-card-content>
-        <span>{{ priceInput.value | currency: 'RM'}}</span>
-        <p>{{ descriptionInput.value }}</p>
+        <!-- FORM -->
+        <form fxLayout="column"            
+          fxLayoutAlign="center"
+          fxLayoutGap="5px"
+          #f="ngForm"
+          (ngSubmit)="onSubmit(f.value)" 
+        >
+          <!-- Input Title -->
+          <mat-form-field class="id">
+            <input type="text" 
+              
+              name="_id"
+              matInput
+              placeholder="Product ID"
+              [(ngModel)]="product._id"
+              required
+              #titleInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="titleInput.hasError('required')">
+              Please key in a title
+            </mat-error>
+          </mat-form-field>
+          
+          <!-- Input Title -->
+          <mat-form-field>
+            <input type="text" 
+              name="title"
+              matInput
+              placeholder="Product Title"
+              [(ngModel)]="product.title"
+              required
+              #titleInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="titleInput.hasError('required')">
+              Please key in a title
+            </mat-error>
+          </mat-form-field>
+
+          <!-- category -->
+          <mat-form-field>
+            <mat-select 
+              placeholder="Category"
+              [(ngModel)]="product.category"
+              name="category"
+              #categoryInput="ngModel"
+            >
+              <mat-option  
+                *ngFor="let category of categories" 
+                [value]="category.name"               
+              >
+                {{ category.name | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Input Code -->
+          <mat-form-field>
+            <input type="text" 
+              name="code"
+              matInput
+              placeholder="Product Code"
+              [(ngModel)]="product.code"
+              #codeInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="codeInput.hasError('required')">
+              Please key in the product code
+            </mat-error>
+          </mat-form-field> 
+
+          <!-- Input Price -->
+          <mat-form-field>
+            <input type="number" 
+              name="price"
+              matInput
+              placeholder="Product Price"
+              [(ngModel)]="product.price"
+              required
+              #priceInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>          
+            <mat-error *ngIf="priceInput.hasError('required')">
+              Please key in a price
+            </mat-error>
+          </mat-form-field>                             
+
+          <!-- Description Text Area-->
+          <mat-form-field>
+            <textarea name="description"
+              matInput
+              placeholder="Product description"
+              [(ngModel)]="product.description" 
+              required 
+              #descriptionInput="ngModel"
+            >
+            </textarea>
+          </mat-form-field>
+
+          <!-- Input Image URL -->
+          <mat-form-field>
+            <input type="text" 
+              name="imageUrl"
+              matInput
+              placeholder="Product image Url"
+              [(ngModel)]="product.image"
+              required
+              #imageUrlInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="imageUrlInput.hasError('required')">
+              Please key in an imageUrl
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Log In Error -->
+          <mat-error
+            *ngIf="invalidInput"
+          >
+            Your input is invalid
+          </mat-error>  
+
+          <!-- Submit Button -->
+          <button             
+            mat-raised-button       
+            color="primary"
+            [disabled]="!f.valid"
+          >
+            Submit
+          </button>
+          
+        </form>
       </mat-card-content>
     </mat-card>
   </div>
 
-  <!-- ** FORM ** -->
-  <div fxFlex="50%"
-    fxLayout="column"
-    fxLayoutAlign="center center"
-  > 
-
-    <!-- Title -->
-    <div class="title"
-      fxLayout="row"
+  <!-- PRODUCT CARD -->
+  <div fxFlex="50"
+    fxLayout="row"
+    fxLayoutAlign="center"
+  >
+    <div fxFlex="50"
+      class="card"
+      fxLayout
       fxLayoutAlign="center center"
     >
-      <mat-icon class="icon">add_shopping_cart</mat-icon>
-      <h2>{{ title }}</h2> 
-    </div>
-
-    <!-- FORM -->
-    <form fxLayout="column"            
-          fxLayoutAlign="center"
-          fxLayoutGap="5px"
-          #f="ngForm"
-          (ngSubmit)="onSubmit(f.value)"  
-    >
-      
-      <!-- Input ID -->
-      <mat-form-field class="id">
-        <input type="text" 
-          name="_id"
-          matInput
-          placeholder="Product ID"
-          [(ngModel)]="product._id"
-          #codeInput="ngModel"
+      <mat-card
+        fxFlex="100"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <mat-card-title
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >   
+          <mat-icon class="icon">visibility</mat-icon>      
+          Product preview
+        </mat-card-title>
+        <img mat-card-image
+          *ngIf="imageUrlInput.value"
+          [src]="imageUrlInput.value"
         >
-      </mat-form-field>
-
-      <!-- Input Title -->
-      <mat-form-field>
-        <input type="text" 
-          name="code"
-          matInput
-          placeholder="Product Code"
-          [(ngModel)]="product.code"
-          #codeInput="ngModel"
+        <mat-card-content
+          fxLayout="column"
         >
-        <mat-icon matSuffix>mode_edit</mat-icon>   
-        <mat-error *ngIf="codeInput.hasError('required')">
-          Please key in the product code
-        </mat-error>
-      </mat-form-field>
 
-      <!-- Input Title -->
-      <mat-form-field>
-        <input type="text" 
-          name="title"
-          matInput
-          placeholder="Product Title"
-          [(ngModel)]="product.title"
-          required
-          #titleInput="ngModel"
-        >
-        <mat-icon matSuffix>mode_edit</mat-icon>   
-        <mat-error *ngIf="titleInput.hasError('required')">
-          Please key in a title
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Input Price -->
-      <mat-form-field>
-        <input type="number" 
-          name="price"
-          matInput
-          placeholder="Product Price"
-          [(ngModel)]="product.price"
-          required
-          #priceInput="ngModel"
-        >
-        <mat-icon matSuffix>mode_edit</mat-icon>          
-        <mat-error *ngIf="priceInput.hasError('required')">
-          Please key in a price
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Input Category -->
-      <mat-form-field>
-          <mat-select 
-            placeholder="Category"
-            (ngModel)="categories"
-            name="category"
-            #inputCategory="ngModel"
+          <!-- Product Title-->
+          <span class="span__title" 
+            *ngIf="titleInput.value"
           >
-            <mat-option  
-              *ngFor="let category of categories" 
-              [value]="category.name" 
-              
-            >
-              {{ category.name }}
-            </mat-option>
-          </mat-select>
-      </mat-form-field>
-      
+            {{ titleInput.value | titlecase}}
+          </span>
 
-      <!-- Description Text Area-->
-      <mat-form-field>
-        <textarea name="description"
-          matInput
-          placeholder="Product description"
-          [(ngModel)]="product.description"
-          required 
-          #descriptionInput="ngModel"
-        >
-        </textarea>
-      </mat-form-field>
+          <!-- Product Subtitle -->
+          <span class="span__subtitle"
+            *ngIf="categoryInput.value"
+          >
+            Maker: {{ categoryInput.value | titlecase }}
+          </span>
 
-      <!-- Input Image URL -->
-      <mat-form-field>
-        <input type="text" 
-          name="imageUrl"
-          matInput
-          placeholder="Product image Url"
-          [(ngModel)]="product.image"
-          required
-          #imageUrlInput="ngModel"
-        >
-        <mat-icon matSuffix>mode_edit</mat-icon>   
-        <mat-error *ngIf="imageUrlInput.hasError('required')">
-          Please key in an imageUrl
-        </mat-error>
-      </mat-form-field>
+          <!-- Product Code -->
+          <span class="span__code" 
+            *ngIf="codeInput.value"
+          >
+            Code : {{ codeInput.value | uppercase }}
+          </span>
 
-      <!-- Log In Error -->
-      <mat-error
-        *ngIf="loginError"
-      >
-        Error: {{ loginErrorMessage }}
-      </mat-error>
+          <!-- Product Price -->
+          <span class="span__price"
+            *ngIf="priceInput.value"
+          >
+            Price : {{ priceInput.value | currency: 'RM'}}
+          </span>   
+          
+          <!-- Product Description -->
+          <span class="span__description"
+            *ngIf="descriptionInput.value"
+          >
+            {{ descriptionInput.value }}
+          </span>
 
-      <!-- Button Group -->
-      <div class="button-group"
-        fxLayout="row"
-        fxLayoutGap="10px"
-      >
-
-        <!-- Cancel Button-->
-        <button 
-          mat-raised-button       
-          color="primary"
-          (click)="cancelEdit()"
-        >
-          Cancel
-        </button>
-
-        <!-- Submit Button-->
-        <button 
-          mat-raised-button       
-          color="accent"
-          [disabled]="!f.valid"
-        >
-          Edit
-        </button>
-
-      </div><!-- Button Group -->        
+        </mat-card-content>
+      </mat-card> 
+    </div> 
+  </div>
   
-    </form>
-  </div>   
-
 </div><!-- Div Wrapper -->

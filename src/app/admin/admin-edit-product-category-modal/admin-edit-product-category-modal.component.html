@@ -48,9 +48,19 @@
   </mat-form-field>
 
   <!-- Error -->
-  <mat-error *ngIf="invalidCategory">
-    The category that you submitted is not valid
-  </mat-error>
+  <div class="error">
+
+    <!-- Invalid Category Error -->
+    <mat-error *ngIf="invalidCategory">
+      The category that you submitted is not valid
+    </mat-error>
+
+    <!-- Not Found -->
+    <mat-error *ngIf="notFound">
+        The category that you submitted is not found
+    </mat-error>
+
+  </div>
 
   <!-- Submit Button-->
   <button 

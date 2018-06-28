@@ -1,129 +1,133 @@
-<!-- TOOLBAR -->
-<mat-toolbar color="primary" 
-  class="toolbar"
-  role="heading"
->
-  <!-- Toolbar Burger Icon -->
-  <div
-    fxHide.gt-xs="true"
+<div class="contet">
+  <!-- TOOLBAR -->
+  <mat-toolbar color="primary" 
+    class="toolbar"
+    role="heading"
   >
-    <button mat-icon-button>
-      <mat-icon (click)="sidenav.toggle()">menu</mat-icon >
-    </button>
-  </div>
+    <!-- Toolbar Burger Icon -->
+    <div>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle()">menu</mat-icon >
+      </button>
+    </div>
 
-  <!-- Toolbar Logo -->
-  <div>
-    LOGO 
-  </div>
+    <!-- Toolbar Logo -->
+    <div>
+      LOGO 
+    </div>
 
-  <!-- Toolbar Menu -->
-  <div fxFlex
-    fxHide.xs="true"
-  >
-    <ul 
-      fxFlex
-      fxLayout
-      fxLayoutAlign="flex-end"
-      fxLayoutGap="15px"
-      class="navigation-items"
+    <!-- Toolbar Menu -->
+    <div fxFlex
+      fxHide.xs="true"
     >
-      <!-- Home Link -->
-      <li routerLink="/">
-        <mat-icon>home</mat-icon>
-      </li>
-
-      <!-- Home Link -->
-      <li *ngIf="authService.isLoggedIn()" 
-        routerLink="/login"
+      <ul 
+        fxFlex
+        fxLayout
+        fxLayoutAlign="flex-end"
+        fxLayoutGap="15px"
+        class="navigation-items"
       >
-        <mat-icon>input</mat-icon>
-      </li>
+        <!-- Home Link -->
+        <li routerLink="/">
+          <mat-icon matTooltip="Home">home</mat-icon>
+        </li>
 
-      <!-- Register Link-->
-      <li *ngIf="authService.isLoggedIn()"
-        routerLink="/register"
-      >
-        <mat-icon>face</mat-icon>
-      </li>
+        <!-- Home Link -->
+        <li *ngIf="authService.isLoggedIn()" 
+          routerLink="/login"
+        >
+          <mat-icon matTooltip="Login">input</mat-icon>
+        </li>
 
-      <!-- Admin Link -->
-      <li *ngIf="!authService.isLoggedIn() && authService.currentUser.admin"
-        routerLink="/admin"
-      >
-        <mat-icon>accessibility</mat-icon>
-      </li>
+        <!-- Register Link-->
+        <li *ngIf="authService.isLoggedIn()"
+          routerLink="/register"
+        >
+          <mat-icon matTooltip="Register">face</mat-icon>
+        </li>
 
-      <!-- Logout Link -->
-      <li (click)="authService.logout()"
-        routerLink="/logout"
-      >
-        <mat-icon>eject</mat-icon>
-      </li>
+        <!-- Admin Link -->
+        <li *ngIf="!authService.isLoggedIn() && authService.currentUser.admin"
+          routerLink="/admin"
+        >
+          <mat-icon matTooltip="Admin Page">accessibility</mat-icon>
+        </li>
 
-    </ul>
-  </div>
-</mat-toolbar>
-
-<!-- SIDENAV-->
-<mat-sidenav-container class="sidenav-container">  
-  <mat-sidenav #sidenav role="navigation" class="sidenav"> 
-      <mat-nav-list>
-
-          <!-- Sidenav Home Menu-->
-          <a mat-list-item 
-              routerLink="/" 
-              (click)="sidenav.close()"
+        <!-- Logout Link -->
+        <li *ngIf="!authService.isLoggedIn()">
+          <mat-icon 
+            (click)="logout()"
+            matTooltip="Logout"
           >
-              <mat-icon class="icon">home</mat-icon>   
-              <span>Home</span>
-          </a>
-
-          <!-- Sidenav Login Menu-->
-          <a mat-list-item 
-              routerLink="/login" 
-              (click)="sidenav.close()"
-              *ngIf="authService.isLoggedIn()"
-          >
-              <mat-icon class="icon">input</mat-icon>   
-              <span>Login</span>
-          </a>
+            eject
+          </mat-icon>
           
-          <!-- Sidenav Signup Menu -->
-          <a mat-list-item 
-              routerLink="/register" 
-              (click)="sidenav.close()"
-              *ngIf="authService.isLoggedIn()"
-          >
-              <mat-icon class="icon">face </mat-icon>   
-              <span>Register</span>
-          </a>    
-          
-          <!-- Sidenav Admin Menu -->
-          <a mat-list-item 
-              routerLink="/admin" 
-              (click)="sidenav.close()"
-              *ngIf="!authService.isLoggedIn() && authService.currentUser.admin"
-          >
-              <mat-icon class="icon">accessibility</mat-icon>   
-              <span>Admin</span>
-          </a> 
+        </li>
 
-          <!-- Sidenav Logout Menu-->
-          <mat-list-item>
-              <button mat-icon-button
-                *ngIf="!authService.isLoggedIn()"
-                (click)="authService.logout()"
-              >
-                  <mat-icon class="icon">eject</mat-icon>   
-                  <span>Logout</span>
-              </button>
-          </mat-list-item>
+      </ul>
+    </div>
+  </mat-toolbar>
 
-      </mat-nav-list>   
-  </mat-sidenav>
+  <!-- SIDENAV-->
+  <mat-sidenav-container class="sidenav-container">  
+    <mat-sidenav #sidenav role="navigation" class="sidenav"> 
+        <mat-nav-list>
 
-  <mat-sidenav-content>      
-    <router-outlet></router-outlet>    
-  </mat-sidenav-content>
-</mat-sidenav-container>
+            <!-- Sidenav Home Menu-->
+            <a mat-list-item 
+                routerLink="/" 
+                (click)="sidenav.close()"
+            >
+                <mat-icon class="icon">home</mat-icon>   
+                <span>Home</span>
+            </a>
+
+            <!-- Sidenav Login Menu-->
+            <a mat-list-item 
+                routerLink="/login" 
+                (click)="sidenav.close()"
+                *ngIf="authService.isLoggedIn()"
+            >
+                <mat-icon class="icon">input</mat-icon>   
+                <span>Login</span>
+            </a>
+            
+            <!-- Sidenav Signup Menu -->
+            <a mat-list-item 
+                routerLink="/register" 
+                (click)="sidenav.close()"
+                *ngIf="authService.isLoggedIn()"
+            >
+                <mat-icon class="icon">face </mat-icon>   
+                <span>Register</span>
+            </a>    
+            
+            <!-- Sidenav Admin Menu -->
+            <a mat-list-item 
+                routerLink="/admin" 
+                (click)="sidenav.close()"
+                *ngIf="!authService.isLoggedIn() && authService.currentUser.admin"
+            >
+                <mat-icon class="icon">accessibility</mat-icon>   
+                <span>Admin</span>
+            </a> 
+
+            <!-- Sidenav Logout Menu-->
+            <mat-list-item>
+                <button mat-icon-button
+                  *ngIf="!authService.isLoggedIn()"
+                  (click)="authService.logout()"
+                >
+                    <mat-icon class="icon">eject</mat-icon>   
+                    <span>Logout</span>
+                </button>
+            </mat-list-item>
+
+        </mat-nav-list>   
+    </mat-sidenav>
+
+    <mat-sidenav-content>      
+      <router-outlet></router-outlet>    
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

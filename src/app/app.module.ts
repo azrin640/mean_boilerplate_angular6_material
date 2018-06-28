@@ -11,6 +11,9 @@ import { NavigationModule } from './navigation.module';
 // Angular Flex
 import { FlexLayoutModule } from '@angular/flex-layout';
 
+// ngx-quill
+import { QuillModule } from 'ngx-quill';
+
 //Components
 import { NavigationsComponent } from './navigations/navigations.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,7 +24,6 @@ import { AdminNewProductComponent } from './admin/admin-new-product/admin-new-pr
 import { AdminNewProductCategoryComponent } from './admin/admin-new-product-category/admin-new-product-category.component';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
-import { AdminEditProductCategoryComponent } from './admin/admin-edit-product-category/admin-edit-product-category.component';
 import { AdminEditProductCategoryModalComponent } from './admin/admin-edit-product-category-modal/admin-edit-product-category-modal.component';
 import { AdminDeleteProductCategoryModalComponent } from './admin/admin-delete-product-category-modal/admin-delete-product-category-modal.component';
 
@@ -33,6 +35,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-guard.service';
 import { AdminEditProductComponent } from './admin/admin-edit-product/admin-edit-product.component';
+import { AdminDeleteProductComponent } from './admin/admin-delete-product/admin-delete-product.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -51,10 +54,10 @@ export function tokenGetter() {
     AdminProductsComponent,
     AdminNewProductComponent,
     AdminNewProductCategoryComponent,
-    AdminEditProductCategoryComponent,
     AdminEditProductCategoryModalComponent,
     AdminDeleteProductCategoryModalComponent,
-    AdminEditProductComponent
+    AdminEditProductComponent,
+    AdminDeleteProductComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,10 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:4200', 'localhost:7777']
       }
-    })
+    }),
+    
+    // Quill
+    QuillModule
   ],
   providers: [
     AuthService,
@@ -87,7 +93,8 @@ export function tokenGetter() {
   entryComponents: [
     AdminEditProductCategoryModalComponent,
     AdminDeleteProductCategoryModalComponent,
-    AdminEditProductComponent
+    AdminEditProductComponent,
+    AdminDeleteProductComponent
   ]
 })
 export class AppModule { }

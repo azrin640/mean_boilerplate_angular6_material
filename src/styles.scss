@@ -1,18 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-html{
-    height: 100vh;   
+html{  
+    height: 100%;
     margin: 0;
-    padding: 0;   
+    padding: 0;  
 }
-
 body{
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
-    min-height: 100%;
-}
+    padding: 0; 
+} 
 
+.content{
+    height: 90vh;
+    padding: 10px;
+}
 .icon{
     padding-right: 10px;
 }
@@ -20,4 +23,12 @@ body{
 .inner{
     height:100vh;
     padding: 10px;
+}
+
+.menu{
+
+    &__item{
+        background-color: yellow;
+        padding: 30px;
+    }
 }

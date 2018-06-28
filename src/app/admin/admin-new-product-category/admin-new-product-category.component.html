@@ -1,152 +1,165 @@
-<form #f="ngForm"
-  (ngSubmit)="onSubmit(f.value); f.resetForm()"
-  fxLayout="column"
-  fxLayoutAlign="center"
->
-  <!-- Title -->
-  <div class="tittle">
-    <h2>
-      <mat-icon>subject</mat-icon>
-      {{ title }}
-    </h2>
-  </div>
+<div class="content">
 
-    <!-- New Category ID -->
-    <mat-form-field class="inputId">
-      <input type="text"
-        name="id"
-        [(ngModel)]="id"
-        matInput
-        placeholder="Category ID"
-        #idInput="ngModel"
+  <!-- ** FORM ** -->
+  <form #f="ngForm"
+    (ngSubmit)="onSubmit(f.value); f.resetForm()"
+    fxLayout="column"
+    fxLayoutAlign="center"
+  >
+    <!-- Title -->
+    <div class="tittle"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <h2>
+        <mat-icon>subject</mat-icon>
+        {{ title }}
+      </h2>
+    </div>
+
+      <!-- New Category ID -->
+      <mat-form-field class="inputId">
+        <input type="text"
+          name="id"
+          [(ngModel)]="id"
+          matInput
+          placeholder="Category ID"
+          #idInput="ngModel"
+        >
+      </mat-form-field>
+
+      <!-- New Category Input -->
+      <mat-form-field>
+        <input type="text"
+          name="name"
+          [(ngModel)]="name"
+          matInput
+          placeholder="Add a category"
+          required
+          #categoryInput="ngModel"
+        >
+      </mat-form-field>
+
+      <!-- New Category Description -->
+      <mat-form-field>
+        <textarea type="text"
+          name="description"
+          [(ngModel)]="description"
+          matInput
+          placeholder="Category Description"
+          required
+          #descriptionInput="ngModel"
+        >
+        </textarea>
+      </mat-form-field>
+
+      <!-- Error -->
+      <mat-error *ngIf="invalidCategory">
+        The category that you submitted is not valid
+      </mat-error>
+
+      <!-- Submit Button-->
+      <button 
+        mat-raised-button       
+        color="accent"
+        [disabled]="!f.valid"
       >
-    </mat-form-field>
+        Submit
+      </button>
 
-  <!-- New Category Input -->
-  <mat-form-field>
-    <input type="text"
-      name="name"
-      [(ngModel)]="name"
-      matInput
-      placeholder="Add a category"
-      required
-      #categoryInput="ngModel"
+  </form>
+
+
+  <!-- ** TABLE ** -->
+  <div class="table"
+  > 
+
+    <!-- ** FILTER ** -->
+    <div class="filter">
+      <mat-form-field>
+        <input matInput type="text"
+          (keyup) = "filter($event.target.value)"
+          placeholder="Filter"
+          class="filter"  >
+      </mat-form-field>
+    </div><!-- Filter -->
+
+    <table mat-table [(dataSource)]="dataSource" 
+      class="mat-elevation-z8 mat-table"
+      matSort
     >
-  </mat-form-field>
-
-  <!-- New Category Description -->
-  <mat-form-field>
-    <textarea type="text"
-      name="description"
-      [(ngModel)]="description"
-      matInput
-      placeholder="Category Description"
-      required
-      #descriptionInput="ngModel"
-    >
-    </textarea>
-  </mat-form-field>
-
-  <!-- Error -->
-  <mat-error *ngIf="invalidCategory">
-    The category that you submitted is not valid
-  </mat-error>
-
-  <!-- Submit Button-->
-  <button 
-    mat-raised-button       
-    color="accent"
-    [disabled]="!f.valid"
-  >
-    Submit
-  </button>
-
-</form>
-
-
-<!-- ** TABLE ** -->
-<div class="table"
->
-  
-  <mat-form-field>
-    <input matInput type="text"
-      (keyup) = "filter($event.target.value)"
-      placeholder="Filter"
-      class="filter"
-    >
-  </mat-form-field>
-
-  <mat-table [(dataSource)]="dataSource" 
-    class="mat-elevation-z8 mat-table"
-    matSort
-  >
-    <!-- Table Index -->
-    <ng-container matColumnDef="index">
-      <th mat-header-cell *matHeaderCellDef> Index </th>
-      <td mat-cell *matCellDef="let row; let i = index"> 
-        {{ i + 1 }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Category Name -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-      <td mat-cell *matCellDef="let element"> 
-        {{ element.name | uppercase }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Description -->
-    <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef> Description </th>
-        <td mat-cell *matCellDef="let element"> 
-          {{ element.description }} 
+      <!-- Table Index -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef> Index </th>
+        <td mat-cell *matCellDef="let row; let i = index"> 
+          {{ i + 1 }} 
         </td>
-    </ng-container>
+      </ng-container>
 
-    <!-- Table Manage -->
-    <ng-container matColumnDef="manage">
-        <th mat-header-cell *matHeaderCellDef> Manage </th>
+      <!-- Table Category Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
         <td mat-cell *matCellDef="let element"> 
-          <div class="button-row">
-
-            <!-- Edit Button-->
-            <button mat-mini-fab 
-              color="primary" 
-              class="mini-fab-button"       
-              (click)="editCategory(element)" 
-              matTooltip="Edit this category"       
-            > 
-              Edit
-            </button>
-
-            <!-- Delete Button-->
-            <button mat-mini-fab 
-              color="accent" 
-              class="mini-fab-button"       
-              (click)="deleteCategory(element)" 
-              matTooltip="Delete this category"       
-            > 
-              Del
-            </button>            
-
-          </div>
+          {{ element.name | uppercase }} 
         </td>
-    </ng-container>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns">
-    </tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <!-- Table Description -->
+      <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> 
+            {{ element.description }} 
+          </td>
+      </ng-container>
 
-  </mat-table>
+      <!-- Table Manage -->
+      <ng-container matColumnDef="manage">
+          <th mat-header-cell *matHeaderCellDef> Manage </th>
+          <td mat-cell *matCellDef="let element"> 
+            <div class="button-row">
 
-  <!-- Paginator -->
-  <mat-paginator 
-    class="paginator"
-    [length]="100"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-  >
-  </mat-paginator>
-</div><!-- Div Table -->
+              <!-- Edit Button-->
+              <button mat-mini-fab 
+                color="primary" 
+                class="mini-fab-button"       
+                (click)="editCategory(element)" 
+                matTooltip="Edit this category"       
+              > 
+                Edit
+              </button>
 
+              <!-- Delete Button-->
+              <button mat-mini-fab 
+                color="accent" 
+                class="mini-fab-button"       
+                (click)="deleteCategory(element)" 
+                matTooltip="Delete this category"       
+              > 
+                Del
+              </button> 
+              
+              <mat-error *ngIf="invalidRequest">
+                Your action is invalid
+              </mat-error>
+
+            </div>
+          </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator 
+      class="paginator"
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    >
+    </mat-paginator>
+  </div><!-- Div Table -->
+
+</div><!-- content-->

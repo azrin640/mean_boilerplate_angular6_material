@@ -14,6 +14,7 @@ import { finalize } from 'rxjs/operators';
 export class AdminNewProductCategoryComponent implements OnInit, AfterViewInit {
 
   invalidCategory = false;
+  invalidRequest = false;
   saved = false;
   dataSource = new MatTableDataSource<Category>();
   displayedColumns = ['index', 'name', 'description', 'manage'];
@@ -68,29 +69,51 @@ export class AdminNewProductCategoryComponent implements OnInit, AfterViewInit {
       });
   }
 
-  deleteCategory(input: Category){
-    this.dialog.open(AdminDeleteProductCategoryModalComponent);
-    if(true){
-      this.productsService.deleteProductCategory(input)
-        .subscribe((response: any) => {
-          if(response && response._id){
-            let oldData:any;
-            oldData = this.dataSource.data;
-            let index = oldData.indexOf(input);          
-            oldData.splice(index, 1);          
-            this.dataSource.data = oldData;
-            this.table.renderRows();
+  // Delete Category
+  deleteCategory(input: any){
+    let dialogRef = this.dialog.open(AdminDeleteProductCategoryModalComponent);
 
-          }
-          if(response === 404){
-            this.invalidCategory = true;
-          }
-        }) 
-    }  
+    let oldData:any = [];
+    oldData = this.dataSource.data;
+    let index = oldData.indexOf(input);
+
+    dialogRef.afterClosed()
+      .subscribe((response) => {
+
+        if(response.data === true){
+          this.productsService.deleteProductCategory(input)
+            .subscribe((response: any) => {
+              if(response._id){
+                          
+                oldData.splice(index, 1);          
+                this.dataSource.data = oldData;
+              } 
+              else{
+                this.invalidRequest = true;
+              }             
+            });          
+        }
+
+        if(response.data === false){
+        }
+
+      });
   }
 
-  editCategory(category):any{
-    this.dialog.open(AdminEditProductCategoryModalComponent, {data: category});
+  // Edit Category
+  editCategory(category){
+    let dialogRef = this.dialog.open(AdminEditProductCategoryModalComponent, {data: category});
+    
+    let oldData: any = [];
+    oldData = this.dataSource.data;
+    let index = oldData.indexOf(category);  
+    
+    dialogRef.afterClosed()
+      .subscribe((response: any) => {
+        oldData.splice(index, 1, response);
+        this.dataSource.data = oldData;
+        this.table.renderRows();
+      });
   }
 
   filter(input: any){

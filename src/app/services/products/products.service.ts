@@ -37,7 +37,13 @@ export class ProductsService {
     return this.http.post('/api/product/edit', product);
   }
 
+  deleteProduct(product){
+    return this.http.post('/api/product/delete', product);
+  }
+
   getProducts(){
     return this.http.get('/api/products');
   }
+
+
 }

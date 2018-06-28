@@ -3,242 +3,325 @@
   fxLayout.xs="column"
   fxLayoutGap="10px"
 >
-  <div fxFlex="50"    
+  <div fxFlex="50"
+    fxLayout="column"
+    fxLayoutAlign="center"
   > 
-    <!-- Title -->
-    <div class="title"
-      fxLayout="row"
-      fxLayoutAlign="center center"
-    >
-      <mat-icon class="icon">add_shopping_cart</mat-icon>
-      <h2>{{ title }}</h2> 
-    </div>
+    <mat-card>
+      <!-- Title -->
+      <mat-card-title 
+        fxLayout="row"
+        fxLayoutAlign="center center"
+      >
+        <mat-icon class="icon">add_shopping_cart</mat-icon>
+          {{ title }} 
+      </mat-card-title>
 
-    <!-- FORM -->
-    <form fxLayout="column"            
+      <mat-card-content>
+        <!-- FORM -->
+        <form fxLayout="column"            
           fxLayoutAlign="center"
           fxLayoutGap="5px"
           #f="ngForm"
-          (ngSubmit)="onSubmit(f.value)"  
-    >
-      
-      <!-- Input Code -->
-      <mat-form-field>
-        <input type="text" 
-          name="code"
-          matInput
-          placeholder="Product Code"
-          ngModel
-          #codeInput="ngModel"
+          (ngSubmit)="onSubmit(f.value); f.resetForm()"  
         >
-        <mat-icon matSuffix>mode_edit</mat-icon>   
-        <mat-error *ngIf="codeInput.hasError('required')">
-          Please key in the product code
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Input Title -->
-      <mat-form-field>
-        <input type="text" 
-          name="title"
-          matInput
-          placeholder="Product Title"
-          ngModel
-          required
-          #titleInput="ngModel"
-        >
-        <mat-icon matSuffix>mode_edit</mat-icon>   
-        <mat-error *ngIf="titleInput.hasError('required')">
-          Please key in a title
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Input Price -->
-      <mat-form-field>
-        <input type="number" 
-          name="price"
-          matInput
-          placeholder="Product Price"
-          ngModel
-          required
-          #priceInput="ngModel"
-        >
-        <mat-icon matSuffix>mode_edit</mat-icon>          
-        <mat-error *ngIf="priceInput.hasError('required')">
-          Please key in a price
-        </mat-error>
-      </mat-form-field>
-
-      <!-- category -->
-      <mat-form-field>
-          <mat-select 
-            placeholder="Category"
-            (ngModel)="categories"
-            name="category"
-            #categoryInput="ngModel"
-          >
-            <mat-option  
-              *ngFor="let category of categories" 
-              [value]="category.name"               
+          
+          <!-- Input Title -->
+          <mat-form-field>
+            <input type="text" 
+              name="title"
+              matInput
+              placeholder="Product Title"
+              ngModel
+              required
+              #titleInput="ngModel"
             >
-              {{ category.name }}
-            </mat-option>
-          </mat-select>
-      </mat-form-field>
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="titleInput.hasError('required')">
+              Please key in a title
+            </mat-error>
+          </mat-form-field>
+
+          <!-- category -->
+          <mat-form-field>
+            <mat-select 
+              placeholder="Category"
+              (ngModel)="categories"
+              name="category"
+              #categoryInput="ngModel"
+            >
+              <mat-option  
+                *ngFor="let category of categories" 
+                [value]="category.name"               
+              >
+                {{ category.name | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Input Code -->
+          <mat-form-field>
+            <input type="text" 
+              name="code"
+              matInput
+              placeholder="Product Code"
+              ngModel
+              #codeInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="codeInput.hasError('required')">
+              Please key in the product code
+            </mat-error>
+          </mat-form-field> 
+
+          <!-- Input Price -->
+          <mat-form-field>
+            <input type="number" 
+              name="price"
+              matInput
+              placeholder="Product Price"
+              ngModel
+              required
+              #priceInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>          
+            <mat-error *ngIf="priceInput.hasError('required')">
+              Please key in a price
+            </mat-error>
+          </mat-form-field>                             
+
+          <!-- Description Text Area-->
+          <mat-form-field>
+            <textarea name="description"
+              matInput
+              placeholder="Product description"
+              ngModel 
+              required 
+              #descriptionInput="ngModel"
+            >
+            </textarea>
+          </mat-form-field>
+
+          <!-- Input Image URL -->
+          <mat-form-field>
+            <input type="text" 
+              name="imageUrl"
+              matInput
+              placeholder="Product image Url"
+              ngModel
+              required
+              #imageUrlInput="ngModel"
+            >
+            <mat-icon matSuffix>mode_edit</mat-icon>   
+            <mat-error *ngIf="imageUrlInput.hasError('required')">
+              Please key in an imageUrl
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Log In Error -->
+          <mat-error
+            *ngIf="loginError"
+          >
+            Error: {{ loginErrorMessage }}
+          </mat-error>
       
-
-      <!-- Description Text Area-->
-      <mat-form-field>
-        <textarea name="description"
-          matInput
-          placeholder="Product description"
-          ngModel 
-          required 
-          #descriptionInput="ngModel"
-        >
-        </textarea>
-      </mat-form-field>
-
-      <!-- Input Image URL -->
-      <mat-form-field>
-        <input type="text" 
-          name="imageUrl"
-          matInput
-          placeholder="Product image Url"
-          ngModel
-          required
-          #imageUrlInput="ngModel"
-        >
-        <mat-icon matSuffix>mode_edit</mat-icon>   
-        <mat-error *ngIf="imageUrlInput.hasError('required')">
-          Please key in an imageUrl
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Log In Error -->
-      <mat-error
-        *ngIf="loginError"
-      >
-        Error: {{ loginErrorMessage }}
-      </mat-error>
-  
-      <!-- Submit Button-->
-      <button 
-        mat-raised-button       
-        color="accent"
-        [disabled]="!f.valid"
-      >
-        Submit
-      </button>
-  
-    </form>
+          <!-- Submit Button-->
+          <button 
+            mat-raised-button       
+            color="primary"
+            [disabled]="!f.valid"
+          >
+            Submit
+          </button>
+      
+        </form>
+      </mat-card-content>
+    </mat-card>
   </div>
 
   <!-- PRODUCT CARD -->
   <div fxFlex="50"
-    fxLayout="column"
+    fxLayout="row"
     fxLayoutAlign="center"
   >
-    <mat-card *ngIf="titleInput.value">
-      <mat-card-title>         
-        {{ titleInput.value | titlecase}}
-      </mat-card-title>
-      <img mat-card-image
-        [src]="imageUrlInput.value"
-      >
-      <mat-card-content
+    <div fxFlex="50"
+      class="card"
+      fxLayout
+      fxLayoutAlign="center center"
+    >
+      <mat-card
+        fxFlex="100"
         fxLayout="column"
+        fxLayoutAlign="center center"
       >
-        <span>{{ codeInput.value | uppercase }}</span>
-        <span>{{ categoryInput.value |titlecase }}</span>
-        <span>{{ priceInput.value | currency: 'RM'}}</span>         
-        <span>{{ descriptionInput.value }}</span>
-      </mat-card-content>
-    </mat-card>  
+        <mat-card-title
+          fxLayout="row"
+          fxLayoutAlign="center center"
+        >   
+          <mat-icon class="icon">visibility</mat-icon>      
+          Product preview
+        </mat-card-title>
+        <img mat-card-image
+          *ngIf="imageUrlInput.value"
+          [src]="imageUrlInput.value"
+        >
+        <mat-card-content
+          fxLayout="column"
+        >
+
+          <!-- Product Title-->
+          <span class="span__title" 
+            *ngIf="titleInput.value"
+          >
+            {{ titleInput.value | titlecase}}
+          </span>
+
+          <!-- Product Subtitle -->
+          <span class="span__subtitle"
+            *ngIf="categoryInput.value"
+          >
+            Maker: {{ categoryInput.value | titlecase }}
+          </span>
+
+          <!-- Product Code -->
+          <span class="span__code" 
+            *ngIf="codeInput.value"
+          >
+            Code : {{ codeInput.value | uppercase }}
+          </span>
+
+          <!-- Product Price -->
+          <span class="span__price"
+            *ngIf="priceInput.value"
+          >
+            Price : {{ priceInput.value | currency: 'RM'}}
+          </span>   
+          
+          <!-- Product Description -->
+          <span class="span__description"
+            *ngIf="descriptionInput.value"
+          >
+            {{ descriptionInput.value }}
+          </span>
+
+        </mat-card-content>
+      </mat-card> 
+    </div> 
   </div>
+</div><!-- div wrapper-->
+
+<div class="wrapper">
+
+  <!-- ** FILTER ** -->
+  <div class="filter">
+    <mat-form-field>
+      <input matInput type="text"
+        (keyup) = "filter($event.target.value)"
+        placeholder="Filter"
+        class="filter"  >
+    </mat-form-field>
+  </div><!-- Filter -->
+
+  <!-- ** TABLE **-->
+  <div class="table" fxLayout="column">
+    <table mat-table
+      [(dataSource)]="dataSource" 
+      class="mat-elevation-z8 mat-table"
+      matSort
+    >
+      <!-- Table Index -->
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef> Index </th>
+        <td mat-cell *matCellDef="let row; let i = index"> 
+          {{ i + 1 }} 
+        </td>
+      </ng-container>
+
+      <!-- Table Category Code -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+        <td mat-cell *matCellDef="let element"> 
+          {{ element.category | titlecase }} 
+        </td>
+      </ng-container>
+
+      <!-- Table Category Code -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+        <td mat-cell *matCellDef="let element"> 
+          {{ element.code | titlecase }} 
+        </td>
+      </ng-container>
+
+      <!-- Table Category Title -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+        <td mat-cell *matCellDef="let element"> 
+          {{ element.title | titlecase }} 
+        </td>
+      </ng-container>
+
+      <!-- Table Category Price -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+        <td mat-cell *matCellDef="let element"> 
+          {{ element.price | currency : 'RM' }} 
+        </td>
+      </ng-container>
+
+      <!-- Table Category Description -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> 
+          {{ element.description }} 
+        </td>
+      </ng-container>
+
+      <!-- Table Manage -->
+      <ng-container matColumnDef="manage">
+        <th mat-header-cell *matHeaderCellDef class="table__header"> Manage </th>
+        <td mat-cell *matCellDef="let element"> 
+          <div class="button-row">
+
+            <!-- Edit Button-->
+            <button mat-mini-fab 
+              color="primary" 
+              class="mini-fab-button"       
+              (click)="editProduct(element)" 
+              matTooltip="Edit this product"       
+            > 
+              Edit
+            </button>
+
+            <!-- Delete Button-->
+            <button mat-mini-fab 
+              color="accent" 
+              class="mini-fab-button"       
+              (click)="deleteProduct(element)" 
+              matTooltip="Delete this product"       
+            > 
+              Del
+            </button>            
+
+          </div>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row" fxFlex="100%"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <!-- Paginator -->
+    <mat-paginator 
+      class="paginator"
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+    >
+    </mat-paginator>
+
+  </div><!-- Table -->
 
 </div><!-- Div Wrapper -->
-
-<!-- ** TABLE **-->
-<div class="table" fxLayout="column">
-  <table mat-table
-    [(dataSource)]="dataSource" 
-    class="mat-elevation-z8 mat-table"
-  >
-    <!-- Table Index -->
-    <ng-container matColumnDef="index">
-      <th mat-header-cell *matHeaderCellDef> Index </th>
-      <td mat-cell *matCellDef="let row; let i = index"> 
-        {{ i + 1 }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Category Code -->
-    <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef> Category </th>
-      <td mat-cell *matCellDef="let element"> 
-        {{ element.category | titlecase }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Category Code -->
-    <ng-container matColumnDef="code">
-      <th mat-header-cell *matHeaderCellDef> Code </th>
-      <td mat-cell *matCellDef="let element"> 
-        {{ element.code | titlecase }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Category Title -->
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Title </th>
-      <td mat-cell *matCellDef="let element"> 
-        {{ element.title | titlecase }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Category Price -->
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Price </th>
-      <td mat-cell *matCellDef="let element"> 
-        {{ element.price | currency : 'RM' }} 
-      </td>
-    </ng-container>
-
-    <!-- Table Manage -->
-    <ng-container matColumnDef="manage">
-      <th mat-header-cell *matHeaderCellDef> Manage </th>
-      <td mat-cell *matCellDef="let element"> 
-        <div class="button-row">
-
-          <!-- Edit Button-->
-          <button mat-mini-fab 
-            color="primary" 
-            class="mini-fab-button"       
-            (click)="editProduct(element)" 
-            matTooltip="Edit this category"       
-          > 
-            Edit
-          </button>
-
-          <!-- Delete Button-->
-          <button mat-mini-fab 
-            color="accent" 
-            class="mini-fab-button"       
-            (click)="deleteProduct(element)" 
-            matTooltip="Delete this category"       
-          > 
-            Del
-          </button>            
-
-        </div>
-      </td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="mat-header-row" fxFlex="100%"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-  </table>
-
-</div><!-- Table -->
