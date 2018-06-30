@@ -1,0 +1,63 @@
+
+<!-- PRODUCT CARD -->
+<div fxLayout="row wrap"
+  fxLayout.xs="column"
+  fxLayoutAlign="center"
+>     
+  <div 
+    *ngFor="let product of products"
+  >      
+      <mat-card 
+        class="mat-card"
+      >
+        <!-- Card Image -->
+        <img mat-card-image
+          class="mat-card__image"
+          [src]="product.image"          
+        >
+
+        <!-- Card Content -->
+        <mat-card-content
+        >
+          <div class="mat-card__content"
+            fxLayout="column"
+          >
+            <!-- Product Title-->
+            <span class="span__title" 
+            >
+              {{ product.title | uppercase}}
+            </span>
+
+            <!-- Product Subtitle -->
+            <span class="span__subtitle"
+            >
+              Maker: {{ product.category | titlecase }}
+            </span>
+
+            <!-- Product Code -->
+            <span class="span__code" 
+            >
+              Code : {{ product.code | uppercase }}
+            </span>
+
+            <!-- Product Price -->
+            <span class="span__price"
+            >
+              Price : {{ product.price | currency: 'RM'}}
+            </span>   
+            
+            <!-- Product Description -->
+            <span class="span__description"
+            >
+              {{ product.description | slice: 0 : 50}} ... 
+              <a>Read More</a>
+            </span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    
+  </div>
+</div> 
+
+
+

@@ -26,6 +26,9 @@ import { NoAccessComponent } from './no-access/no-access.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminEditProductCategoryModalComponent } from './admin/admin-edit-product-category-modal/admin-edit-product-category-modal.component';
 import { AdminDeleteProductCategoryModalComponent } from './admin/admin-delete-product-category-modal/admin-delete-product-category-modal.component';
+import { AdminEditProductComponent } from './admin/admin-edit-product/admin-edit-product.component';
+import { AdminDeleteProductComponent } from './admin/admin-delete-product/admin-delete-product.component';
+import { ProductsComponent } from './products/products.component';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -34,8 +37,7 @@ import { HttpModule } from '@angular/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-guard.service';
-import { AdminEditProductComponent } from './admin/admin-edit-product/admin-edit-product.component';
-import { AdminDeleteProductComponent } from './admin/admin-delete-product/admin-delete-product.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -57,7 +59,8 @@ export function tokenGetter() {
     AdminEditProductCategoryModalComponent,
     AdminDeleteProductCategoryModalComponent,
     AdminEditProductComponent,
-    AdminDeleteProductComponent
+    AdminDeleteProductComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

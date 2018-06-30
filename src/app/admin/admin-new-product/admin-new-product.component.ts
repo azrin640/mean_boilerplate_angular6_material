@@ -86,7 +86,7 @@ export class AdminNewProductComponent implements OnInit {
 
     dialogRef.afterClosed()
       .subscribe((response: any) => {
-        if(response && response === true){
+        if(response && (response === true)){
           this.productsService.deleteProduct(product)
             .subscribe((res:any) => {
               oldData.splice(index, 1);
@@ -100,5 +100,6 @@ export class AdminNewProductComponent implements OnInit {
   filter(input: any){
     this.dataSource.filter = input.trim().toLowerCase();
   }
+  
 
 }

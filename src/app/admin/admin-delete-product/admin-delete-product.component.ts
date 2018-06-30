@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { ProductsService } from '../../services/products/products.service';
 
 @Component({
   selector: 'app-admin-delete-product',
@@ -9,7 +10,8 @@ import { MatDialogRef } from '@angular/material';
 export class AdminDeleteProductComponent implements OnInit {
 
   constructor(
-    public matDialogRef: MatDialogRef<AdminDeleteProductComponent>
+    public matDialogRef: MatDialogRef<AdminDeleteProductComponent>,
+    private productsService: ProductsService
   ) { }
 
   ngOnInit() {
