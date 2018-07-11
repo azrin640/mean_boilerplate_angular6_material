@@ -1,5 +1,7 @@
 .toolbar{
     height:7vh;
+    position: fixed;
+    z-index: 999;
 }
 .sidenav{
     width: 250px;

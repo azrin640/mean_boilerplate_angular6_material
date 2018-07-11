@@ -10,9 +10,12 @@ import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-gu
 import { AdminNewProductComponent } from './admin/admin-new-product/admin-new-product.component';
 import { AdminNewProductCategoryComponent} from './admin/admin-new-product-category/admin-new-product-category.component';
 import { ProductsComponent } from './products/products.component';
+import { ImageComponent } from './image/image.component';
+
 const routes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'products', component: ProductsComponent },
+    {path: 'image', component: ImageComponent },
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {

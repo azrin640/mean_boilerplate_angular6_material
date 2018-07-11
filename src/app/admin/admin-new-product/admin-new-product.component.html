@@ -36,7 +36,6 @@
               required
               #titleInput="ngModel"
             >
-            <mat-icon matSuffix>mode_edit</mat-icon>   
             <mat-error *ngIf="titleInput.hasError('required')">
               Please key in a title
             </mat-error>
@@ -68,7 +67,6 @@
               ngModel
               #codeInput="ngModel"
             >
-            <mat-icon matSuffix>mode_edit</mat-icon>   
             <mat-error *ngIf="codeInput.hasError('required')">
               Please key in the product code
             </mat-error>
@@ -83,8 +81,7 @@
               ngModel
               required
               #priceInput="ngModel"
-            >
-            <mat-icon matSuffix>mode_edit</mat-icon>          
+            >       
             <mat-error *ngIf="priceInput.hasError('required')">
               Please key in a price
             </mat-error>
@@ -111,8 +108,7 @@
               ngModel
               required
               #imageUrlInput="ngModel"
-            >
-            <mat-icon matSuffix>mode_edit</mat-icon>   
+            > 
             <mat-error *ngIf="imageUrlInput.hasError('required')">
               Please key in an imageUrl
             </mat-error>

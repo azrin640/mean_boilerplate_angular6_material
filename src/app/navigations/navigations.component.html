@@ -1,4 +1,4 @@
-<div class="contet">
+<div class="navigation">
   <!-- TOOLBAR -->
   <mat-toolbar color="primary" 
     class="toolbar"
@@ -32,7 +32,13 @@
           <mat-icon matTooltip="Home">home</mat-icon>
         </li>
 
-        <!-- Home Link -->
+        <!-- Shop Link -->
+        <li routerLink="/products"
+        >
+          <mat-icon matTooltip="Products">shopping_cart</mat-icon>
+        </li>
+
+        <!-- Login Link -->
         <li *ngIf="authService.isLoggedIn()" 
           routerLink="/login"
         >
@@ -80,6 +86,15 @@
             >
                 <mat-icon class="icon">home</mat-icon>   
                 <span>Home</span>
+            </a>
+
+            <!-- Sidenav Shop Menu-->
+            <a mat-list-item 
+                routerLink="/products" 
+                (click)="sidenav.close()"
+            >
+                <mat-icon class="icon">shopping_cart</mat-icon>   
+                <span>Shop</span>
             </a>
 
             <!-- Sidenav Login Menu-->

@@ -1,63 +1,114 @@
-
-<!-- PRODUCT CARD -->
-<div fxLayout="row wrap"
-  fxLayout.xs="column"
-  fxLayoutAlign="center"
->     
-  <div 
-    *ngFor="let product of products"
-  >      
-      <mat-card 
-        class="mat-card"
-      >
-        <!-- Card Image -->
-        <img mat-card-image
-          class="mat-card__image"
-          [src]="product.image"          
+<mat-drawer-container 
+  fxLayout="row"
+  fxlayoutAlign="center"
+>
+    <!-- Side Content-->
+    <mat-drawer 
+      fxHide.xs
+      mode="side" opened      
+    >
+      <div class="mat-drawer__list">
+        <mat-list>
+          <mat-list-item>
+            <a routerLink="/products">
+              All Categories
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>        
+        </mat-list>
+        
+        <mat-list
+          *ngFor = "let category of categories "
         >
+          <mat-list-item>
+            <a routerLink="/products"
+              [queryParams]="{ category : category.name }"
+            >
+              {{category.name | titlecase}}
+            </a>
+            <mat-divider></mat-divider>
+          </mat-list-item>
+           
+        </mat-list>
+      </div> 
+    </mat-drawer><!-- /Side Content -->
 
-        <!-- Card Content -->
-        <mat-card-content
-        >
-          <div class="mat-card__content"
-            fxLayout="column"
-          >
-            <!-- Product Title-->
-            <span class="span__title" 
+    <!-- Main Content -->
+    <mat-drawer-content
+      class="drawer__content"
+      fxFlex.xs="100%"
+      fxFlexLayout.xs="center center"
+    >
+      <!-- PRODUCT CARD -->
+      <div fxLayout="row wrap"
+        fxLayout.xs="column"
+        fxLayoutAlign="center"
+      >     
+        <div 
+          *ngFor="let product of filteredProducts"
+        >      
+            <mat-card 
+              class="mat-card"
             >
-              {{ product.title | uppercase}}
-            </span>
+              <!-- Card Image -->
+              <img mat-card-image
+                class="mat-card__image"
+                [src]="product.image"          
+              >
 
-            <!-- Product Subtitle -->
-            <span class="span__subtitle"
-            >
-              Maker: {{ product.category | titlecase }}
-            </span>
+              <!-- Card Content -->
+              <mat-card-content
+              >
+                <div class="mat-card__content"
+                  fxLayout="column"
+                >
+                  <!-- Product Title-->
+                  <span class="span__title" 
+                  >
+                    {{ product.title | uppercase}}
+                  </span>
 
-            <!-- Product Code -->
-            <span class="span__code" 
-            >
-              Code : {{ product.code | uppercase }}
-            </span>
+                  <!-- Product Subtitle -->
+                  <span class="span__subtitle"
+                  >
+                    Maker: {{ product.category | titlecase }}
+                  </span>
 
-            <!-- Product Price -->
-            <span class="span__price"
-            >
-              Price : {{ product.price | currency: 'RM'}}
-            </span>   
-            
-            <!-- Product Description -->
-            <span class="span__description"
-            >
-              {{ product.description | slice: 0 : 50}} ... 
-              <a>Read More</a>
-            </span>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    
-  </div>
-</div> 
+                  <!-- Product Code -->
+                  <span class="span__code" 
+                  >
+                    Code : {{ product.code | uppercase }}
+                  </span>
+
+                  <!-- Product Price -->
+                  <span class="span__price"
+                  >
+                    Price : {{ product.price | currency: 'RM'}}
+                  </span>   
+                  
+                  <!-- Product Description -->
+                  <span class="span__description"
+                  >
+                    {{ product.description | slice: 0 : 50}} ... 
+                    <a>Read More</a>
+                  </span>
+                  <button mat-raised-button 
+                    class="mat-card__button"
+                    color="primary" 
+                  >
+                    Add to Cart
+                  </button>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          
+        </div>
+      </div> 
+    </mat-drawer-content><!-- /Main Content -->
+  
+  </mat-drawer-container><!-- /Drawer Container -->
+
+  
 
 
 

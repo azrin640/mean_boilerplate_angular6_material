@@ -1,10 +1,34 @@
+mat-drawer{
+    position: fixed;
+    z-index: 999;
+    top: 40px;
+}
+
+mat-drawer-content{
+    top: 40px;
+}
+
 .mat-card{
-    width: 400px;
-    height: 500px;
+    width: 200px;
+    height: 360px;
     margin: 10px;
+    overflow: auto;
 
     &__image{
         display: block;
-        height: 400px;
+        height: 200px;
+    }
+
+    &__button{
+        margin-top: 20px;
     }
 }
+
+a{
+    text-decoration: none;
+}
+
+
+
+
+
