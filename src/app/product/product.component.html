@@ -1,0 +1,29 @@
+<div class="content">
+  <div fxLayout
+    fxLayoutAlign="center center"
+  >
+    <mat-card 
+      class="card"
+      *ngIf="product"
+      fxFlex.xs="400px"
+      fxFlex.gt-xs="800px"
+    >
+      <img mat-card-image 
+        src="{{ product.image }}"
+        class="card__image"
+      >
+      <mat-card-title>
+        {{ product.title }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        Category : {{ product.category | titlecase}}     
+      </mat-card-subtitle>
+      <mat-card-subtitle>
+        Code : {{ product.code | lowercase }}
+      </mat-card-subtitle>
+      <mat-card-content innerHTML="{{ product.description }}">
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

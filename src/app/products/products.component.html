@@ -1,10 +1,10 @@
 <mat-drawer-container 
   fxLayout="row"
-  fxlayoutAlign="center"
+  fxlayoutAlign="center center"
+  class="wrapper"
 >
     <!-- Side Content-->
     <mat-drawer 
-      fxHide.xs
       mode="side" opened      
     >
       <div class="mat-drawer__list">
@@ -58,6 +58,7 @@
 
               <!-- Card Content -->
               <mat-card-content
+                class="mat-card__content"
               >
                 <div class="mat-card__content"
                   fxLayout="column"
@@ -88,25 +89,35 @@
                   
                   <!-- Product Description -->
                   <span class="span__description"
-                  >
-                    {{ product.description | slice: 0 : 50}} ... 
-                    <a>Read More</a>
-                  </span>
-                  <button mat-raised-button 
-                    class="mat-card__button"
-                    color="primary" 
-                  >
-                    Add to Cart
-                  </button>
+                    innerHTML="{{ product.description | slice: 0 : 50}}"
+                  >                                     
+                  </span>     
+                  <span>
+                    <a [routerLink]="['/product', product.title, product._id]">... Read More</a> 
+                  </span>         
+                   
                 </div>
-              </mat-card-content>
-            </mat-card>
+
+              </mat-card-content><!-- Mat Card Content-->
+
+              <!-- Mat Card Footer -->
+              <mat-card-footer>
+                <!-- Add to Cart Button -->
+                <button mat-raised-button 
+                  class="mat-card__button"
+                  color="primary" 
+                >
+                  Add to Cart
+                </button>
+              </mat-card-footer>
+
+            </mat-card><!-- Mat Card -->
           
         </div>
       </div> 
     </mat-drawer-content><!-- /Main Content -->
   
-  </mat-drawer-container><!-- /Drawer Container -->
+</mat-drawer-container><!-- /Drawer Container -->
 
   
 

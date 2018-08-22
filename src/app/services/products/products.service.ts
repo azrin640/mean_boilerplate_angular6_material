@@ -45,5 +45,8 @@ export class ProductsService {
     return this.http.get('/api/products');
   }
 
+  getProduct(productId){
+    return this.http.get('/api/product/' + productId);
+  }
 
 }

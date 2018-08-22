@@ -1,0 +1,32 @@
+
+
+
+<!-- FORM -->
+<form fxLayout="column"            
+  fxLayoutAlign="center"
+  fxLayoutGap="5px"
+  #f="ngForm"
+  (ngSubmit)="onSubmit(f.value)"  
+>
+
+  <quill-editor
+    ngModel
+    #text="ngModel"
+    name="text"
+    [style]="{ height: '200px' }"
+  >
+  </quill-editor>
+
+  <!-- Submit Button-->
+  <button 
+    mat-raised-button       
+    color="primary"
+    [disabled]="!f.valid"
+  >
+    Submit
+  </button>
+
+</form>
+
+<div innerHTML="{{ text.value }}">
+</div>

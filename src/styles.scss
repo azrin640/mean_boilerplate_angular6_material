@@ -13,23 +13,14 @@ body{
     font-size: 10px;
 } 
 
-.content{
-    height: 90vh;
-    padding: 10px;
-}
 .icon{
     padding-right: 10px;
-}
-
-.inner{
-    height:100vh;
-    padding: 10px;
 }
 
 .menu{
 
     &__item{
-        background-color: yellow;
         padding: 30px;
     }
 }
+

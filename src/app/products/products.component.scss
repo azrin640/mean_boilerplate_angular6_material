@@ -1,11 +1,16 @@
+mat-drawer-container{
+    height: 100vh;
+}
+
 mat-drawer{
     position: fixed;
     z-index: 999;
-    top: 40px;
+    top: 70px;
+    width: 150px;
 }
 
 mat-drawer-content{
-    top: 40px;
+    top: 70px;
 }
 
 .mat-card{
@@ -21,6 +26,11 @@ mat-drawer-content{
 
     &__button{
         margin-top: 20px;
+        width: 100%;
+    }
+
+    &__content{
+        height: 120px;
     }
 }
 

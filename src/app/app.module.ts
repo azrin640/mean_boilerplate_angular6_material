@@ -11,9 +11,6 @@ import { NavigationModule } from './navigation.module';
 // Angular Flex
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-// ngx-quill
-import { QuillModule } from 'ngx-quill';
-
 //Components
 import { NavigationsComponent } from './navigations/navigations.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,6 +27,8 @@ import { AdminEditProductComponent } from './admin/admin-edit-product/admin-edit
 import { AdminDeleteProductComponent } from './admin/admin-delete-product/admin-delete-product.component';
 import { ProductsComponent } from './products/products.component';
 import { ImageComponent } from './image/image.component';
+import { TestComponent } from './test/test.component';
+import { ProductComponent } from './product/product.component';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -38,6 +37,15 @@ import { HttpModule } from '@angular/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard/admin-auth-guard.service';
+import { AboutUsComponent } from './home/about-us/about-us.component';
+import { IndexComponent } from './home/index/index.component';
+import { ContactComponent } from './home/contact/contact.component';
+
+// Kolkov Angular6 Editor
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
+// Ngx Quill Editor
+import { QuillModule } from 'ngx-quill';
 
 
 
@@ -63,7 +71,12 @@ export function tokenGetter() {
     AdminEditProductComponent,
     AdminDeleteProductComponent,
     ProductsComponent,
-    ImageComponent
+    ImageComponent,
+    AboutUsComponent,
+    IndexComponent,
+    ContactComponent,
+    TestComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -86,9 +99,13 @@ export function tokenGetter() {
         whitelistedDomains: ['localhost:4200', 'localhost:7777']
       }
     }),
-    
-    // Quill
+
+    // Kolkov Angular6 Editor
+    AngularEditorModule,
+
+    // Ngx Quill Editor
     QuillModule
+    
   ],
   providers: [
     AuthService,

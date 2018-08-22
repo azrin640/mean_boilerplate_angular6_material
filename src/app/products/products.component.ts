@@ -26,7 +26,7 @@ export class ProductsComponent implements OnInit {
         .getProducts()
         .pipe(
           switchMap((products: any) => {
-            this.products = products;
+            this.products = products;            
             return route.queryParamMap;
           })
         )

@@ -19,10 +19,20 @@ router.post('/register',
 router.post('/login', userController.login);
 
 // ** PRODUCT **
+
 // Create Category
 router.post('/product/category', 
     //catchErrors(userController.isLoggedIn),
     catchErrors(productController.createCategory)
+);
+
+// Get a product by Id
+router.get('/product/:id',
+    catchErrors(productController.getProductById)
+);
+
+router.post('/product/update/:id', 
+    catchErrors(productController.updateProduct)
 );
 
 // Delete Category
@@ -61,9 +71,6 @@ router.get('/products',
 
 
 
-
-router.get('/product/:id', catchErrors(productController.getProduct));
-router.post('/product/update/:id', catchErrors(productController.updateProduct));
 
 module.exports = router;
 

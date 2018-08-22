@@ -136,6 +136,7 @@ exports.getProducts = async (req, res) => {
 }
 
 exports.getProduct = async (req, res) => {
+
     const product = await Product.findOne({_id: req.params.id}, function(err, result){
         if(err){
             res.json(err);
@@ -197,7 +198,6 @@ exports.editProduct = async (req, res) => {
 }
 
 exports.deleteProduct = async (req, res) => {
-   console.log(req.body);
 
     await Product.findByIdAndRemove(
         {_id: req.body._id}, 
@@ -212,3 +212,17 @@ exports.deleteProduct = async (req, res) => {
         }
     );
 }
+
+exports.getProductById =async (req, res) => {
+    await Product.findOne({_id: req.params.id}, 
+        function(err, result){
+            if(result){
+               res.json(result); 
+            }
+            if(err){
+                res,json(err);
+            }
+            
+        })
+}
+

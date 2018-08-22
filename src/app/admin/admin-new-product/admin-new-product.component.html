@@ -3,10 +3,11 @@
   fxLayout.xs="column"
   fxLayoutGap="10px"
 >
+
   <div fxFlex="50"
     fxLayout="column"
-    fxLayoutAlign="center"
-  > 
+    fxLayoutAlign="center" 
+  >
     <mat-card>
       <!-- Title -->
       <mat-card-title 
@@ -85,9 +86,19 @@
             <mat-error *ngIf="priceInput.hasError('required')">
               Please key in a price
             </mat-error>
-          </mat-form-field>                             
+          </mat-form-field>   
 
-          <!-- Description Text Area-->
+          <quill-editor
+            ngModel 
+            #descriptionInput="ngModel"
+            placeholder="Keyin your product description here ..."
+            name="description"
+            [style]="{ height: '200px' }"
+            required
+          >
+          </quill-editor>
+
+          <!-- Description Text Area
           <mat-form-field>
             <textarea name="description"
               matInput
@@ -98,6 +109,9 @@
             >
             </textarea>
           </mat-form-field>
+
+        -->
+          
 
           <!-- Input Image URL -->
           <mat-form-field>
@@ -196,8 +210,8 @@
           <!-- Product Description -->
           <span class="span__description"
             *ngIf="descriptionInput.value"
+            innerHTML="{{ descriptionInput.value }}"
           >
-            {{ descriptionInput.value }}
           </span>
 
         </mat-card-content>
@@ -269,7 +283,8 @@
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Description </th>
         <td mat-cell *matCellDef="let element"> 
-          {{ element.description }} 
+          <div innerHTML="{{ element.description }}">            
+          </div>
         </td>
       </ng-container>
 
